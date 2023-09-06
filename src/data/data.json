@@ -1,0 +1,65 @@
+{
+    "users": [
+      {
+        "username": "user1",
+        "email": "user1@example.com",
+        "password": "password1",
+        "tel": "+1234567890",
+        "money": {
+          "USD": 10012.36,
+          "EUR": 877.15,
+          "GBP": 750.00,
+          "JPY": 12099.03
+        }
+      },
+      {
+        "username": "user2",
+        "email": "user2@example.com",
+        "password": "password2",
+        "tel": "+9876543210",
+        "money": {
+          "USD": 750.50,
+          "EUR": 600.25,
+          "GBP": 525.75,
+          "JPY": 90000.50
+        }
+      },
+      {
+        "username": "user3",
+        "email": "user3@example.com",
+        "password": "password3",
+        "tel": "+1112223333",
+        "money": {
+          "USD": 2000.75,
+          "EUR": 1600.60,
+          "GBP": 1400.40,
+          "JPY": 240000.75
+        }
+      },
+      {
+        "username": "user4",
+        "email": "user4@example.com",
+        "password": "password4",
+        "tel": "+5556667777",
+        "money": {
+          "USD": 500.25,
+          "EUR": 400.20,
+          "GBP": 350.75,
+          "JPY": 60000.25
+        }
+      },
+      {
+        "username": "user5",
+        "email": "user5@example.com",
+        "password": "password5",
+        "tel": "+9990001111",
+        "money": {
+          "USD": 1500.00,
+          "EUR": 1200.00,
+          "GBP": 1050.00,
+          "JPY": 180000.00
+        }
+      }
+    ]
+  }
+  

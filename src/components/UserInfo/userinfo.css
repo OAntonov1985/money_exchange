@@ -1,0 +1,12 @@
+.userinfo__page {
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    min-height: 70px;
+    align-items: center;
+    border-radius: 30px;
+    padding: 10px 0;
+    flex: 1 1 auto;
+    flex-direction: column;
+}

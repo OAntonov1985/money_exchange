@@ -1,0 +1,10 @@
+.fooret {
+    border: 1px solid black;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+    min-height: 70px;
+    align-items: center;
+    border-radius: 30px;
+    padding: 10px 0;
+}
