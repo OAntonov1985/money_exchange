@@ -1,88 +1,55 @@
 import './main.css'
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import CurrencyRates from '../CurrencyRates/CurrencyRates';
+import SailOfCurrensy from '../SailOfCurrensy/SailOfCurrensy';
+import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 
 export default function Main(props) {
     const { userAuthorized } = props;
     const [sellUserMoney, setSellUserMoney] = useState('USD');
-    const [buyUserMoney, setBuyUserMoney] = useState('EUR');
-    const [actualCourse, setActualCourse] = useState(null)
+    const [amountСurrencyToSell, setAmountСurrencyToSell] = useState(0)// валюта яку продаємо
+    // const [buyUserMoney, setBuyUserMoney] = useState('EUR'); // валюта яку купляємо    
     const [balanse, setBalanse] = useState(null)
     const length = userAuthorized.length;
-
-    let nameOfValies = [];
-    useEffect(() => {
-        if (userAuthorized.length !== undefined) {
-            setBalanse(userAuthorized[0].money.USD);
-            nameOfValies = Object.keys(userAuthorized[0].money);
-        }
-    }, [userAuthorized.length])
+    const data = { sellUserMoney, setSellUserMoney, balanse, userAuthorized, setBalanse, amountСurrencyToSell, setAmountСurrencyToSell }
 
 
-    function setupMoney(event) {
-        for (let key in userAuthorized[0].money) {
-            if (key === sellUserMoney) {
-                setBalanse(userAuthorized[0].money[key])
-            }
+    // async function fetchSupportedSymbols() {
+    //     try {
+    //         const response = await fetch(
+    //             `https://api.exchangerate.host/symbols`
+    //         );
+    //         const data = await response.json();
+    //         sumbolsOfValues = Object.keys(data.symbols);
 
-        }
-        setSellUserMoney(event.target.value)
-    }
+    //         // console.log(sumbolsOfValues)
+    //         // setActualCourse(data.rates.EUR);
+    //         // setLoading(false);
 
-    async function fetchCurrencyRates() {
-        try {
-            const response = await fetch(
-                `https://api.exchangerate.host/latest?base=${sellUserMoney}`
-            );
-            const data = await response.json();
-            console.log(data.rates.EUR)
-            setActualCourse(data.rates.EUR);
-            // setLoading(false);
+    //     } catch (error) {
+    //         // setLoading(false);
+    //     }
+    // }
+    // fetchSupportedSymbols();
 
-        } catch (error) {
-            // setLoading(false);
-        }
-    }
-    // fetchCurrencyRates();
+
+
 
 
     return (
         <>  {length !== undefined ? <div className='main__page'>
             <div className='moneyOpsion'><div>Продаж {sellUserMoney}</div>
-                {/* <div>Обрати іншу валюту
-                    <select onChange={setupMoney}>
-                        {nameOfValies.map((currency, index) => (
-                            <option key={index} value={currency}>
-                                {currency}
-                            </option>
-                        ))}
-                    </select>
-                </div> */}
             </div>
-            <div className='actualCourse'>Астуальний курс: 1 {sellUserMoney} = {actualCourse} {buyUserMoney}</div>
-            <div className="sellMoney">
-                <div className="left__sell__money">
-                    <div className="maney__value"><select onChange={setupMoney}>
-                        {nameOfValies.map((currency, index) => (
-                            <option key={index} value={currency}>
-                                {currency}
-                            </option>
-                        ))}
-                    </select>
-                    </div>
-                    <div className="balanse">Баланс рахунку: {balanse}</div>
-                </div>
+            <CurrencyRates data={data} />
+            <SailOfCurrensy data={data} />
 
-                <div className="right__sell__money"><input type="number" className='input__sell' /></div>
-            </div>
             <div className="toggle__money">toggle</div>
-            <div className="buyMoney">buy</div>
+            <div className="buyMoney"> EUR  </div>
             <div className="submit__deal">
                 <button className='button__submit btn__main'>Make a deal</button>
             </div>
-        </div> : null}
-
-
+        </div> : <ErrorBoundary />}
         </>
     );
 }

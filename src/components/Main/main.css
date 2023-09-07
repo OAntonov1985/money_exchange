@@ -40,3 +40,21 @@
 .balanse {
     text-align: left;
 }
+.input__sell {
+    text-align: right;
+    border-radius: 5px;
+    width: 60px;
+    height: 20px;
+    font-size: 16px;
+}
+.right__sell__money {
+    display: flex;
+    align-items: center;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+}

@@ -17,22 +17,15 @@ export default function Login(props) {
         setUserPassword(event.target.value)
     }
 
-
-
-
     function userIdentification(event) {
         event.preventDefault()
         const result = data.users.filter(user => (user.email === userEmail && user.password === userPassword))
         if (result.length !== 0) {
             setUserDataHandler(result)
             navigate('/main');
-
         }
         else (alert('Користувача не знайдено'))
-
-
     }
-
 
     return (
         <>
