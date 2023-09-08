@@ -12,10 +12,12 @@ export default function ErrorBoundary() {
 
     return (
         <>
-            <div className="main__page"> <div className="error">
-                <div className="h1__error"><h1 className="h1__error">Ви не авторизовані</h1></div>
-                <div> <button className='button__submit' onClick={goToLoginPage}> Авторизуйтесь для доступу до рахунків</button> </div>
-            </div>
+            <div className="main__page">
+                <div className="error">
+                    <div className="h1__error"><h1 className="h1__error">Ви не авторизовані</h1></div>
+                    <div> <button className='button__submit' onClick={goToLoginPage}> Авторизуйтесь для доступу до рахунків</button>
+                    </div>
+                </div>
             </div>
         </>
     );

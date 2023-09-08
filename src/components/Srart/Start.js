@@ -8,8 +8,10 @@ export default function Start() {
 
     const [rates, setRates] = useState({});
     const [loading, setLoading] = useState(true);
+
     useEffect(() => {
         async function fetchCurrencyRates() {
+
             try {
                 const response = await fetch(
                     `https://openexchangerates.org/api/latest.json?app_id=${key}`
@@ -22,8 +24,10 @@ export default function Start() {
                 setLoading(false);
             }
         }
+
         fetchCurrencyRates();
     }, []);
+
     return (
         <>
             <div className='start__page'>

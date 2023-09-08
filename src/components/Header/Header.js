@@ -11,6 +11,7 @@ export default function Header(props) {
 
 
     useEffect(() => {
+
         if (userAuthorized.length === undefined) {
             setDisplayHelloText('block')
             setDisplayAutorizerUser('none')

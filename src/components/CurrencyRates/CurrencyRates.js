@@ -9,6 +9,7 @@ function CurrencyRates(props) {
             );
             const data = await response.json();
             setActualCourse(data.rates.EUR);
+            // console.log(data.rates)
             // setLoading(false);
 
         } catch (error) {

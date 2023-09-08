@@ -9,7 +9,19 @@ import Footer from './components/Footer/Footer'
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 
 function App() {
-  const [userAuthorized, setUserAuthorized] = useState({}) // чи авторизований юзер
+  const [userAuthorized, setUserAuthorized] = useState([
+    {
+      "username": "user1",
+      "email": "user1@example.com",
+      "password": "password1",
+      "tel": "+1234567890",
+      "money": {
+        "USD": 10012.36,
+        "EUR": 877.15,
+        "GBP": 750.00,
+        "JPY": 12099.03
+      }
+    }]) // чи авторизований юзер
 
 
   const setUserDataHandler = (data) => {
