@@ -1,10 +1,6 @@
-import { useState } from 'react';
 
 function CurrencyRates(props) {
-    const { sellUserMoney } = props.data
-    // const [sellUserMoney, setSellUserMoney] = useState('USD');
-    // const [buyUserMoney, setBuyUserMoney] = useState('EUR');
-    const [actualCourse, setActualCourse] = useState(null)
+    const { actualCourse, setActualCourse, sellUserMoney, buyUserMoney } = props.course
 
     async function fetchCurrencyRates() {
         try {
@@ -24,7 +20,7 @@ function CurrencyRates(props) {
 
     return (
         <>
-            <div className='actualCourse'>Астуальний курс: 1 {sellUserMoney} = {actualCourse} "EUR"</div>
+            <div className='actualCourse'>Актуальний курс: 1 {sellUserMoney} = {actualCourse} {buyUserMoney}</div>
         </>
     )
 }
