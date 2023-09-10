@@ -1,25 +1,24 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import React from 'react';
 
 function SailOfCurrensy(props) {
-    const { balanse, userAuthorized, setBalanse, amountСurrencyToSell, setAmountСurrencyToSell, setAmountCorrency, sellUserMoney, firstRowSign, displaySing, input1 } = props.sellObj;
+    const { balanse, userAuthorized, setBalanse, setAmountCorrency, sellUserMoney, firstRowSign, displaySing, input1 } = props.sellObj;
 
     // const input1 = React.createRef(amountСurrencyToSell)
 
     const [nameOfValues, setNameOfValues] = useState([])
 
-    // function setupMoney(event) {
+    function selectMoneyInVallet(event) {
+        console.log(event.target.value)
 
-    //     for (let key in userAuthorized[0].money) {
-    //         if (key === event.target.value) {
-    //             setBalanse(userAuthorized[0].money[key])
-    //         }
-    //     }
+        // for (let key in userAuthorized[0].money) {
+        //     if (key === event.target.value) {
+        //         setBalanse(userAuthorized[0].money[key])
+        //     }
+        // }
 
-    //     setSellUserMoney(event.target.value)
-    //     setAmountСurrencyToSell(0);
-    //     setAmountСurrencyToBuy(0);
-    // }
+
+    }
 
     useEffect(() => {
 
@@ -29,7 +28,7 @@ function SailOfCurrensy(props) {
         }
 
     }, [userAuthorized.length])
-    // console.log(input1.current.value)
+    // console.log(balanse2)
 
 
 
@@ -57,12 +56,14 @@ function SailOfCurrensy(props) {
     // }
 
 
+
+
     return (
         <>
             <div className="sellMoney">
                 <div className="left__sell__money">
                     <div className="maney__value">
-                        <select  >
+                        <select onChange={selectMoneyInVallet}>
                             {nameOfValues.map((currency, index) => (
                                 <option key={index} value={currency}>
                                     {currency}
@@ -73,9 +74,9 @@ function SailOfCurrensy(props) {
                     <div className="balanse">Баланс Вашого рахунку: <br /> {balanse} {sellUserMoney} </div>
                 </div>
                 <div className="right__sell__money">
-                    <div className='row__sing' style={{ display: displaySing }}>{firstRowSign}</div>
+                    <div className='row__sing'
+                        style={{ display: displaySing }}>{firstRowSign}</div>
                     <input type="number" className='input__sell'
-                        // value={amountСurrencyToSell === null ? "0" : amountСurrencyToSell}
                         placeholder="0"
                         onChange={setAmountCorrency} ref={input1} />
                 </div>

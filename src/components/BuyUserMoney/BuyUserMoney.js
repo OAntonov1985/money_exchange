@@ -1,25 +1,13 @@
 import { useState, useEffect } from 'react';
 
 function BuyUserMoney(props) {
-    const { amountСurrencyToBuy, userAuthorized, balanseBuy, setBalanseBuy, buyUserMoney, secondRowSign, displaySing, input2, setAmountСurrencyToBuy, setAmountCorrency } = props.buyObj;
+    const { userAuthorized, balanseBuy, setBalanseBuy, buyUserMoney, secondRowSign, displaySing, input2, input1, actualCourse } = props.buyObj;
     const [nameOfValues, setNameOfValues] = useState([])
 
-    function changeValue(event) {
-        // console.log(event.target.value)
-        // console.log(+input2.current.value)
-
-
-        setAmountСurrencyToBuy(+input2.current.value)
-        setBalanseBuy(balanseBuy + amountСurrencyToBuy)
-        // let result = balanseBuy + amountСurrencyToBuy;
-        console.log('func')
-        // console.log(result)
+    function changeValue() {
+        let res = (+input2.current.value) / actualCourse;
+        input1.current.value = parseFloat(res.toFixed(2));
     }
-    // let result = balanseBuy + amountСurrencyToBuy;
-    // // console.log('func')
-    // console.log(result)
-
-    // console.log(amountСurrencyToBuy)
 
 
     useEffect(() => {
@@ -63,7 +51,6 @@ function BuyUserMoney(props) {
 
                 <div className="right__sell__money"><div className='row__plus' style={{ display: displaySing }}>{secondRowSign}</div><input type="number" className='input__sell'
                     placeholder="0"
-                    value={amountСurrencyToBuy}
                     onChange={changeValue}
                     ref={input2} /></div>
             </div>

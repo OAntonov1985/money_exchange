@@ -16,12 +16,15 @@ export default function Main(props) {
 
     // const [test, dispatch] = useReduser()
 
+    const bal = userAuthorized[0].money.USD
+    // console.log(userAuthorized[0].money.USD)
+
     const [sellUserMoney, setSellUserMoney] = useState('USD');  // назва валюти яку продаємо
     const [buyUserMoney, setBuyUserMoney] = useState('EUR'); // назва валюти яку купляємо   
 
 
-    const [amountСurrencyToSell, setAmountСurrencyToSell] = useState(0)// кілкість валюти яку продаємо
-    const [amountСurrencyToBuy, setAmountСurrencyToBuy] = useState(0)// кілкість валюти яку купляємо
+    const [amountСurrencyToSell, setAmountСurrencyToSell] = useState(null)// кілкість валюти яку продаємо
+    // const [amountСurrencyToBuy, setAmountСurrencyToBuy] = useState(null)// кілкість валюти яку купляємо
 
     const [balanse, setBalanse] = useState(null) // залишковий баланс рахунку з якого продаємо
     const [balanseBuy, setBalanseBuy] = useState(null)  // залишковий баланс рахунку на який купляємо
@@ -36,43 +39,41 @@ export default function Main(props) {
     const length = userAuthorized.length;
 
 
-    const input1 = React.createRef(amountСurrencyToSell)
-    const input2 = React.createRef(amountСurrencyToBuy)
+    const input1 = React.createRef(null)
+    const input2 = React.createRef(null)
 
 
-    const sellObj = { setSellUserMoney, balanse, userAuthorized, setBalanse, amountСurrencyToSell, setAmountСurrencyToSell, setAmountСurrencyToBuy, setAmountCorrency, sellUserMoney, firstRowSign, displaySing, input1 };
+    const sellObj = { balanse, userAuthorized, setBalanse, setAmountCorrency, sellUserMoney, firstRowSign, displaySing, input1, setSellUserMoney };
 
     const course = { actualCourse, setActualCourse, sellUserMoney, buyUserMoney };
 
-    const buyObj = { amountСurrencyToBuy, userAuthorized, balanseBuy, setBalanseBuy, buyUserMoney, secondRowSign, displaySing, input2, setAmountСurrencyToBuy, setAmountCorrency }
+    const buyObj = { userAuthorized, balanseBuy, setBalanseBuy, buyUserMoney, secondRowSign, displaySing, input2, input1, actualCourse }
 
 
 
     function setAmountCorrency(event) {
-        // console.log(+input2.current.value)
-        // setAmountСurrencyToBuy(+input2.current.value)
 
-        setAmountСurrencyToSell(event.target.value);
+        setAmountСurrencyToSell(+input1.current.value);
 
+        // змінюємо баланс на рахунку після вводу в input
+        setBalanse(parseFloat((bal - (+input1.current.value)).toFixed(2)))
 
-        // змінюємо баланс на рахунках після вводу в input
 
         let result = balanse - (+event.target.value);
-        let moneyToSell = +event.target.value * actualCourse;
-        let moneyToBuy = balanseBuy + moneyToSell;
+        let moneyToSell = +input1.current.value * actualCourse;
 
         if (result >= 0) {
-            setBalanse(parseFloat(result.toFixed(2)));
-            setAmountСurrencyToBuy(parseFloat(moneyToSell.toFixed(2)))
-            setBalanseBuy(parseFloat(moneyToBuy.toFixed(2)))
+            input2.current.value = parseFloat(moneyToSell.toFixed(2))
         }
+        // якщо недостатньо коштів повертаємо початковий балан рахунків
         else if (result < 0) {
             alert('Недостатньо коштів на рахунку');
-            setAmountСurrencyToSell(0);
-            setAmountСurrencyToBuy(0);
-            setDisplaySing('none')
+            // setAmountСurrencyToSell(null);
+            // setAmountСurrencyToBuy(null);
+            setDisplaySing('none');
+            input1.current.value = ''
+            input2.current.value = ''
 
-            // якщо недостатньо коштів повертаємо початковий балан рахунків
             for (let key in userAuthorized[0].money) {
                 if (key === sellUserMoney) {
                     setBalanse(userAuthorized[0].money[key])
@@ -90,6 +91,7 @@ export default function Main(props) {
     }
 
 
+
     function toggleRows() {
         setRotation(rotation + 180);
         setColumn(column === 'column' ? 'column-reverse' : 'column');
@@ -100,13 +102,13 @@ export default function Main(props) {
 
     useEffect(() => {
 
-        if (amountСurrencyToSell !== 0) {
+        if (amountСurrencyToSell !== null) {
             if (column === 'column') {
                 setDisplaySing('block')
             }
         }
 
-    }, [balanse])
+    }, [input1])
 
 
     // console.log(buyMoney)
