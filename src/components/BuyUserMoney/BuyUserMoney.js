@@ -1,12 +1,26 @@
 import { useState, useEffect } from 'react';
 
 function BuyUserMoney(props) {
-    const { amountСurrencyToBuy, userAuthorized, balanseBuy, setBalanseBuy, buyUserMoney } = props.buyObj;
+    const { amountСurrencyToBuy, userAuthorized, balanseBuy, setBalanseBuy, buyUserMoney, secondRowSign, displaySing, input2, setAmountСurrencyToBuy, setAmountCorrency } = props.buyObj;
     const [nameOfValues, setNameOfValues] = useState([])
 
     function changeValue(event) {
-        console.log(event.target.value)
+        // console.log(event.target.value)
+        // console.log(+input2.current.value)
+
+
+        setAmountСurrencyToBuy(+input2.current.value)
+        setBalanseBuy(balanseBuy + amountСurrencyToBuy)
+        // let result = balanseBuy + amountСurrencyToBuy;
+        console.log('func')
+        // console.log(result)
     }
+    // let result = balanseBuy + amountСurrencyToBuy;
+    // // console.log('func')
+    // console.log(result)
+
+    // console.log(amountСurrencyToBuy)
+
 
     useEffect(() => {
 
@@ -16,6 +30,7 @@ function BuyUserMoney(props) {
         }
 
     }, [userAuthorized.length])
+
 
     // function setupMoney(event) {
 
@@ -46,7 +61,11 @@ function BuyUserMoney(props) {
                     <div className="balanse">Баланс Вашого рахунку: <br /> {balanseBuy} {buyUserMoney} </div>
                 </div>
 
-                <div className="right__sell__money"><input type="number" className='input__sell' value={amountСurrencyToBuy} onChange={changeValue} /></div>
+                <div className="right__sell__money"><div className='row__plus' style={{ display: displaySing }}>{secondRowSign}</div><input type="number" className='input__sell'
+                    placeholder="0"
+                    value={amountСurrencyToBuy}
+                    onChange={changeValue}
+                    ref={input2} /></div>
             </div>
         </>
     )
@@ -54,5 +73,3 @@ function BuyUserMoney(props) {
 }
 
 export default BuyUserMoney;
-// parseFloat(amountСurrencyToSell * actualCourse.toFixed(2))
-// value={amountСurrencyToBuy }

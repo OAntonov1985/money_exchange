@@ -1,12 +1,15 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useState } from 'react';
-import Start from './components/Srart/Start';
-import Header from './components/Header/Header'
-import Login from './components/Login/Login';
-import Main from './components/Main/Main';
-import UserInfo from './components/UserInfo/UserInfo';
-import Footer from './components/Footer/Footer'
-import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
+
+import Start from '../Srart/Start';
+import Header from '../Header/Header'
+import Login from '../Login/Login';
+import Main from '../Main/Main';
+import UserInfo from '../UserInfo/UserInfo';
+import Footer from '../Footer/Footer'
+import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
+
+
 
 function App() {
   const [userAuthorized, setUserAuthorized] = useState([

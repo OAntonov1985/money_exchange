@@ -11,6 +11,11 @@ export default function Main(props) {
     const { userAuthorized } = props;
     const [rotation, setRotation] = useState(180);
 
+    // function reduser(state, action) {
+    // }
+
+    // const [test, dispatch] = useReduser()
+
     const [sellUserMoney, setSellUserMoney] = useState('USD');  // назва валюти яку продаємо
     const [buyUserMoney, setBuyUserMoney] = useState('EUR'); // назва валюти яку купляємо   
 
@@ -23,21 +28,35 @@ export default function Main(props) {
 
     const [actualCourse, setActualCourse] = useState(null);   //актуальний курс валюти
     const [column, setColumn] = useState('column') // для тоглу строк
+
+    const [firstRowSign, setFirstRowfirstRowSign] = useState('-')
+    const [secondRowSign, setSekondRowfirstRowSign] = useState('+')
+
+    const [displaySing, setDisplaySing] = useState('none')
     const length = userAuthorized.length;
 
 
-    const sellObj = { setSellUserMoney, balanse, userAuthorized, setBalanse, amountСurrencyToSell, setAmountСurrencyToSell, setAmountСurrencyToBuy, setAmountCorrency, sellUserMoney };
+    const input1 = React.createRef(amountСurrencyToSell)
+    const input2 = React.createRef(amountСurrencyToBuy)
+
+
+    const sellObj = { setSellUserMoney, balanse, userAuthorized, setBalanse, amountСurrencyToSell, setAmountСurrencyToSell, setAmountСurrencyToBuy, setAmountCorrency, sellUserMoney, firstRowSign, displaySing, input1 };
 
     const course = { actualCourse, setActualCourse, sellUserMoney, buyUserMoney };
 
-    const buyObj = { amountСurrencyToBuy, userAuthorized, balanseBuy, setBalanseBuy, buyUserMoney }
+    const buyObj = { amountСurrencyToBuy, userAuthorized, balanseBuy, setBalanseBuy, buyUserMoney, secondRowSign, displaySing, input2, setAmountСurrencyToBuy, setAmountCorrency }
 
 
 
     function setAmountCorrency(event) {
+        // console.log(+input2.current.value)
+        // setAmountСurrencyToBuy(+input2.current.value)
+
         setAmountСurrencyToSell(event.target.value);
 
+
         // змінюємо баланс на рахунках після вводу в input
+
         let result = balanse - (+event.target.value);
         let moneyToSell = +event.target.value * actualCourse;
         let moneyToBuy = balanseBuy + moneyToSell;
@@ -51,6 +70,7 @@ export default function Main(props) {
             alert('Недостатньо коштів на рахунку');
             setAmountСurrencyToSell(0);
             setAmountСurrencyToBuy(0);
+            setDisplaySing('none')
 
             // якщо недостатньо коштів повертаємо початковий балан рахунків
             for (let key in userAuthorized[0].money) {
@@ -72,8 +92,21 @@ export default function Main(props) {
 
     function toggleRows() {
         setRotation(rotation + 180);
-        setColumn('column-reverse')
+        setColumn(column === 'column' ? 'column-reverse' : 'column');
+        setFirstRowfirstRowSign(firstRowSign === '-' ? '+' : '-');
+        setSekondRowfirstRowSign(secondRowSign === '+' ? '-' : '+')
     }
+
+
+    useEffect(() => {
+
+        if (amountСurrencyToSell !== 0) {
+            if (column === 'column') {
+                setDisplaySing('block')
+            }
+        }
+
+    }, [balanse])
 
 
     // console.log(buyMoney)
@@ -111,6 +144,7 @@ export default function Main(props) {
                 </div>
                 <CurrencyRates course={course} />
                 <SailOfCurrensy sellObj={sellObj} />
+                {/* <button onClick={() => dispatch}>Push</button> */}
 
                 <div className="toggle__money" onClick={toggleRows}>
                     <img className="arrow__img"

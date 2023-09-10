@@ -1,7 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import React from 'react';
 
 function SailOfCurrensy(props) {
-    const { balanse, userAuthorized, setBalanse, amountСurrencyToSell, setAmountСurrencyToSell, setAmountCorrency, sellUserMoney } = props.sellObj;
+    const { balanse, userAuthorized, setBalanse, amountСurrencyToSell, setAmountСurrencyToSell, setAmountCorrency, sellUserMoney, firstRowSign, displaySing, input1 } = props.sellObj;
+
+    // const input1 = React.createRef(amountСurrencyToSell)
 
     const [nameOfValues, setNameOfValues] = useState([])
 
@@ -26,14 +29,14 @@ function SailOfCurrensy(props) {
         }
 
     }, [userAuthorized.length])
+    // console.log(input1.current.value)
 
 
 
 
-    function clearInput() {
-        setAmountСurrencyToSell('')
-        // console.log(777)
-    }
+    // function clearInput() {
+    //     setAmountСurrencyToSell('')
+    // }
 
     // function test() {
     //     // console.log(event.target)
@@ -53,6 +56,7 @@ function SailOfCurrensy(props) {
     //     setAmountСurrencyToBuy(0);
     // }
 
+
     return (
         <>
             <div className="sellMoney">
@@ -68,7 +72,12 @@ function SailOfCurrensy(props) {
                     </div>
                     <div className="balanse">Баланс Вашого рахунку: <br /> {balanse} {sellUserMoney} </div>
                 </div>
-                <div className="right__sell__money"><input type="number" className='input__sell' value={amountСurrencyToSell} onChange={setAmountCorrency} onFocus={clearInput} />
+                <div className="right__sell__money">
+                    <div className='row__sing' style={{ display: displaySing }}>{firstRowSign}</div>
+                    <input type="number" className='input__sell'
+                        // value={amountСurrencyToSell === null ? "0" : amountСurrencyToSell}
+                        placeholder="0"
+                        onChange={setAmountCorrency} ref={input1} />
                 </div>
             </div>
         </>
