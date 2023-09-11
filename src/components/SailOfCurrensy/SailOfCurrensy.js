@@ -2,28 +2,25 @@ import { useState, useEffect } from 'react';
 import React from 'react';
 
 function SailOfCurrensy(props) {
-    const { balanse, userAuthorized, setBalanse, setAmountCorrency, sellUserMoney, firstRowSign, displaySing, input1 } = props.sellObj;
-
-    // const input1 = React.createRef(amountСurrencyToSell)
+    const { finalBalanse, userAuthorized, setAmountCorrency, sellUserMoney, firstRowSign, displaySing, input1, setSellUserMoney, input2, sratrBalanseInWallet, setStartBalanseInWallet } = props.sellObj;
 
     const [nameOfValues, setNameOfValues] = useState([])
 
     function selectMoneyInVallet(event) {
-        console.log(event.target.value)
 
-        // for (let key in userAuthorized[0].money) {
-        //     if (key === event.target.value) {
-        //         setBalanse(userAuthorized[0].money[key])
-        //     }
-        // }
-
-
+        for (let key in userAuthorized[0].money) {
+            if (key === event.target.value) {
+                setStartBalanseInWallet(userAuthorized[0].money[key])
+                setSellUserMoney(key);
+                input1.current.value = '';
+                input2.current.value = '';
+            }
+        }
     }
 
     useEffect(() => {
 
         if (userAuthorized.length !== undefined) {
-            setBalanse(userAuthorized[0].money.USD);
             setNameOfValues(Object.keys(userAuthorized[0].money));
         }
 
@@ -71,7 +68,9 @@ function SailOfCurrensy(props) {
                             ))}
                         </select>
                     </div>
-                    <div className="balanse">Баланс Вашого рахунку: <br /> {balanse} {sellUserMoney} </div>
+                    <div className="balanse">Баланс Вашого рахунку: <br />
+                        {finalBalanse === 0 ? sratrBalanseInWallet : finalBalanse}  {sellUserMoney}
+                    </div>
                 </div>
                 <div className="right__sell__money">
                     <div className='row__sing'

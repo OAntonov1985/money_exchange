@@ -1,3 +1,4 @@
+import '../ModalWindow/modal.css'
 import './main.css'
 import React from 'react';
 import { useState, useEffect } from 'react';
@@ -5,29 +6,25 @@ import CurrencyRates from '../CurrencyRates/CurrencyRates';
 import SailOfCurrensy from '../SailOfCurrensy/SailOfCurrensy';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 import BuyUserMoney from '../BuyUserMoney/BuyUserMoney';
+import ModalWindow from '../ModalWindow/ModalWindow';
 import Arrow from '../../img/pngegg.png'
 
 export default function Main(props) {
     const { userAuthorized } = props;
     const [rotation, setRotation] = useState(180);
 
-    // function reduser(state, action) {
-    // }
-
-    // const [test, dispatch] = useReduser()
-
-    const bal = userAuthorized[0].money.USD
-    // console.log(userAuthorized[0].money.USD)
 
     const [sellUserMoney, setSellUserMoney] = useState('USD');  // назва валюти яку продаємо
     const [buyUserMoney, setBuyUserMoney] = useState('EUR'); // назва валюти яку купляємо   
 
 
-    const [amountСurrencyToSell, setAmountСurrencyToSell] = useState(null)// кілкість валюти яку продаємо
-    // const [amountСurrencyToBuy, setAmountСurrencyToBuy] = useState(null)// кілкість валюти яку купляємо
 
-    const [balanse, setBalanse] = useState(null) // залишковий баланс рахунку з якого продаємо
-    const [balanseBuy, setBalanseBuy] = useState(null)  // залишковий баланс рахунку на який купляємо
+    const [sratrBalanseInWallet, setStartBalanseInWallet] = useState(userAuthorized[0].money.USD)
+    const [sratrBalanseInWalletRow2, setStartBalanseInWalletRow2] = useState(userAuthorized[0].money.EUR)
+    // стартовий баланс валют в гаманці
+
+    const [finalBalanse, setFinalBalanse] = useState(0) // залишковий баланс рахунку з якого продаємо
+    const [finalBalanseRow2, setFinalBalanseRow2] = useState(0)  // залишковий баланс рахунку на який купляємо
 
     const [actualCourse, setActualCourse] = useState(null);   //актуальний курс валюти
     const [column, setColumn] = useState('column') // для тоглу строк
@@ -43,23 +40,21 @@ export default function Main(props) {
     const input2 = React.createRef(null)
 
 
-    const sellObj = { balanse, userAuthorized, setBalanse, setAmountCorrency, sellUserMoney, firstRowSign, displaySing, input1, setSellUserMoney };
+    const sellObj = { finalBalanse, userAuthorized, setFinalBalanse, setAmountCorrency, sellUserMoney, firstRowSign, displaySing, input1, setSellUserMoney, input2, sratrBalanseInWallet, setStartBalanseInWallet };
 
     const course = { actualCourse, setActualCourse, sellUserMoney, buyUserMoney };
 
-    const buyObj = { userAuthorized, balanseBuy, setBalanseBuy, buyUserMoney, secondRowSign, displaySing, input2, input1, actualCourse }
+    const buyObj = { userAuthorized, finalBalanseRow2, setFinalBalanseRow2, buyUserMoney, secondRowSign, displaySing, input2, input1, actualCourse, setFinalBalanse, sratrBalanseInWallet, finalBalanse, setDisplaySing, sellUserMoney, setStartBalanseInWallet, setStartBalanseInWalletRow2, sratrBalanseInWalletRow2, setBuyUserMoney }
 
 
 
     function setAmountCorrency(event) {
-
-        setAmountСurrencyToSell(+input1.current.value);
-
         // змінюємо баланс на рахунку після вводу в input
-        setBalanse(parseFloat((bal - (+input1.current.value)).toFixed(2)))
+        setFinalBalanse(parseFloat((sratrBalanseInWallet - (+input1.current.value)).toFixed(2)))
+        setFinalBalanseRow2(parseFloat((sratrBalanseInWalletRow2 + (+input1.current.value) * actualCourse).toFixed(2)))
 
 
-        let result = balanse - (+event.target.value);
+        let result = sratrBalanseInWallet - (+event.target.value);
         let moneyToSell = +input1.current.value * actualCourse;
 
         if (result >= 0) {
@@ -68,28 +63,27 @@ export default function Main(props) {
         // якщо недостатньо коштів повертаємо початковий балан рахунків
         else if (result < 0) {
             alert('Недостатньо коштів на рахунку');
-            // setAmountСurrencyToSell(null);
-            // setAmountСurrencyToBuy(null);
+            setFinalBalanse(0)
             setDisplaySing('none');
             input1.current.value = ''
             input2.current.value = ''
 
             for (let key in userAuthorized[0].money) {
                 if (key === sellUserMoney) {
-                    setBalanse(userAuthorized[0].money[key])
+                    setFinalBalanse(userAuthorized[0].money[key])
                 }
             }
 
             for (let key in userAuthorized[0].money) {
                 if (key === buyUserMoney) {
-                    setBalanseBuy(userAuthorized[0].money[key])
+                    setFinalBalanseRow2(userAuthorized[0].money[key])
                 }
             }
         }
 
         setBuyUserMoney("EUR")
     }
-
+    // console.log(finalBalanse)
 
 
     function toggleRows() {
@@ -102,13 +96,14 @@ export default function Main(props) {
 
     useEffect(() => {
 
-        if (amountСurrencyToSell !== null) {
+        if (finalBalanse !== 0) {
             if (column === 'column') {
                 setDisplaySing('block')
             }
         }
 
-    }, [input1])
+    }, [finalBalanse])
+
 
 
     // console.log(buyMoney)

@@ -1,0 +1,9 @@
+.custom-modal {
+    width: 50%; /* Задайте бажану ширину */
+    height: 80vh; /* Задайте бажану висоту */
+    margin: 20px auto; /* Центрування по горизонталі */
+    background-color: white; /* Колір фону */
+    border: 1px solid #ccc; /* Обрамлення */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Тінь */
+    padding: 20px; /* Передній відступ */
+}
