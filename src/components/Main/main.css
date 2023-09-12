@@ -87,6 +87,16 @@ input[type="number"]::-webkit-outer-spin-button {
     width: 500px;
 }
 
-Modal {
-    width: 500px;
+.li__list__of__symbols {
+    padding: 10px 0;
+}
+
+.currency__symbols,
+.currency__fullnamed {
+    margin: 0;
+}
+
+.currency__fullnamed {
+    font-size: 12px;
+    opacity: 40%;
 }

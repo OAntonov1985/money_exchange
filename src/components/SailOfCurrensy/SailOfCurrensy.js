@@ -2,18 +2,28 @@ import { useState, useEffect } from 'react';
 import React from 'react';
 
 function SailOfCurrensy(props) {
-    const { finalBalanse, userAuthorized, setAmountCorrency, sellUserMoney, firstRowSign, displaySing, input1, setSellUserMoney, input2, sratrBalanseInWallet, setStartBalanseInWallet } = props.sellObj;
+    const { finalBalanse, userAuthorized, setAmountCorrency, sellUserMoney, firstRowSign, displaySing, input1, setSellUserMoney, input2, sratrBalanseInWallet, setStartBalanseInWallet, setFinalBalanse, setFinalBalanseRow2, buyUserMoney, setStartBalanseInWalletRow2, setDisplaySing } = props.sellObj;
 
     const [nameOfValues, setNameOfValues] = useState([])
 
     function selectMoneyInVallet(event) {
-
+        setFinalBalanse(0);
+        setFinalBalanseRow2(0);
+        setDisplaySing('none')
         for (let key in userAuthorized[0].money) {
             if (key === event.target.value) {
+                setFinalBalanse(0)
                 setStartBalanseInWallet(userAuthorized[0].money[key])
                 setSellUserMoney(key);
                 input1.current.value = '';
                 input2.current.value = '';
+            }
+        }
+
+        for (let key in userAuthorized[0].money) {
+            if (key === buyUserMoney) {
+                setStartBalanseInWalletRow2(userAuthorized[0].money[key])
+
             }
         }
     }

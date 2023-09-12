@@ -8,7 +8,12 @@ function CurrencyRates(props) {
                 `https://api.exchangerate.host/latest?base=${sellUserMoney}`
             );
             const data = await response.json();
-            setActualCourse(data.rates.EUR);
+            for (let key in data.rates) {
+                if (key === buyUserMoney) {
+                    setActualCourse(parseFloat(data.rates[key].toFixed(2)));
+                }
+            }
+            // setActualCourse(data.rates.EUR);
             // console.log(data.rates)
             // setLoading(false);
 
@@ -17,7 +22,7 @@ function CurrencyRates(props) {
         }
     }
     fetchCurrencyRates();
-    // setBuyUserMoney('EUR')
+
 
     return (
         <>

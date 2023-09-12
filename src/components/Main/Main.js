@@ -1,12 +1,13 @@
 import '../ModalWindow/modal.css'
 import './main.css'
+
 import React from 'react';
 import { useState, useEffect } from 'react';
+
 import CurrencyRates from '../CurrencyRates/CurrencyRates';
 import SailOfCurrensy from '../SailOfCurrensy/SailOfCurrensy';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 import BuyUserMoney from '../BuyUserMoney/BuyUserMoney';
-import ModalWindow from '../ModalWindow/ModalWindow';
 import Arrow from '../../img/pngegg.png'
 
 export default function Main(props) {
@@ -15,8 +16,7 @@ export default function Main(props) {
 
 
     const [sellUserMoney, setSellUserMoney] = useState('USD');  // назва валюти яку продаємо
-    const [buyUserMoney, setBuyUserMoney] = useState('EUR'); // назва валюти яку купляємо   
-
+    const [buyUserMoney, setBuyUserMoney] = useState('EUR'); // назва валюти яку купляємо
 
 
     const [sratrBalanseInWallet, setStartBalanseInWallet] = useState(userAuthorized[0].money.USD)
@@ -40,12 +40,18 @@ export default function Main(props) {
     const input2 = React.createRef(null)
 
 
-    const sellObj = { finalBalanse, userAuthorized, setFinalBalanse, setAmountCorrency, sellUserMoney, firstRowSign, displaySing, input1, setSellUserMoney, input2, sratrBalanseInWallet, setStartBalanseInWallet };
+    const sellObj = { finalBalanse, userAuthorized, setFinalBalanse, setAmountCorrency, sellUserMoney, firstRowSign, displaySing, input1, setSellUserMoney, input2, sratrBalanseInWallet, setStartBalanseInWallet, setFinalBalanseRow2, buyUserMoney, setStartBalanseInWalletRow2, setDisplaySing };
 
     const course = { actualCourse, setActualCourse, sellUserMoney, buyUserMoney };
 
     const buyObj = { userAuthorized, finalBalanseRow2, setFinalBalanseRow2, buyUserMoney, secondRowSign, displaySing, input2, input1, actualCourse, setFinalBalanse, sratrBalanseInWallet, finalBalanse, setDisplaySing, sellUserMoney, setStartBalanseInWallet, setStartBalanseInWalletRow2, sratrBalanseInWalletRow2, setBuyUserMoney }
 
+
+    // function resetpage() {
+    //     input1.current.value = '';
+    //     input2.current.value = '';
+    //     setDisplaySing('none');
+    // }
 
 
     function setAmountCorrency(event) {
@@ -63,25 +69,31 @@ export default function Main(props) {
         // якщо недостатньо коштів повертаємо початковий балан рахунків
         else if (result < 0) {
             alert('Недостатньо коштів на рахунку');
-            setFinalBalanse(0)
+            input1.current.value = '';
+            input2.current.value = '';
             setDisplaySing('none');
-            input1.current.value = ''
-            input2.current.value = ''
+            setFinalBalanse(0);
+            setFinalBalanseRow2(0);
+            setDisplaySing('none')
+
 
             for (let key in userAuthorized[0].money) {
                 if (key === sellUserMoney) {
-                    setFinalBalanse(userAuthorized[0].money[key])
+                    setStartBalanseInWallet(userAuthorized[0].money[key])
                 }
             }
 
             for (let key in userAuthorized[0].money) {
                 if (key === buyUserMoney) {
-                    setFinalBalanseRow2(userAuthorized[0].money[key])
+                    setStartBalanseInWalletRow2(userAuthorized[0].money[key]);
+                    break
+                }
+                else if (key !== buyUserMoney) {
+                    console.log(777)
+                    setStartBalanseInWalletRow2(0);
                 }
             }
         }
-
-        setBuyUserMoney("EUR")
     }
     // console.log(finalBalanse)
 
@@ -141,17 +153,17 @@ export default function Main(props) {
                 </div>
                 <CurrencyRates course={course} />
                 <SailOfCurrensy sellObj={sellObj} />
-                {/* <button onClick={() => dispatch}>Push</button> */}
 
                 <div className="toggle__money" onClick={toggleRows}>
                     <img className="arrow__img"
-                        src={Arrow} // Зображення стрілки
+                        src={Arrow}
                         alt="Стрілка"
                         style={{ transform: `rotate(${rotation}deg)` }}
                     />
                 </div>
 
                 <BuyUserMoney buyObj={buyObj} />
+
                 <div className="submit__deal">
                     <button className='button__submit btn__main'>Make a deal</button>
                 </div>
@@ -162,4 +174,5 @@ export default function Main(props) {
 
 
 
-// когда удаляю все цифри нужно вернуть баланс
+// кнопка активная- неактивная
+// подсвет о недостаточности средств
