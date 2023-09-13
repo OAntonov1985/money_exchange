@@ -1,18 +1,30 @@
 import '../ModalWindow/modal.css'
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import ModalWindow from '../ModalWindow/ModalWindow';
 
 
 function BuyUserMoney(props) {
-    const { userAuthorized, finalBalanseRow2, setFinalBalanseRow2, buyUserMoney, secondRowSign, displaySing, input2, input1, actualCourse, setFinalBalanse, sratrBalanseInWallet, sellUserMoney, setDisplaySing, setStartBalanseInWallet, setStartBalanseInWalletRow2, sratrBalanseInWalletRow2, setBuyUserMoney, resetpage } = props.buyObj;
+    const { userAuthorized, finalBalanseRow2, setFinalBalanseRow2, buyUserMoney, displaySing, input2, input1, actualCourse, setFinalBalanse, sratrBalanseInWallet, sellUserMoney, setDisplaySing, setStartBalanseInWallet, setStartBalanseInWalletRow2, sratrBalanseInWalletRow2, setBuyUserMoney, resetpage } = props.buyObj;
 
-    const [nameOfValues, setNameOfValues] = useState([]);
+
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const obj = { isModalOpen, setIsModalOpen, setBuyUserMoney, setStartBalanseInWalletRow2, userAuthorized, setFinalBalanseRow2, setFinalBalanse, setStartBalanseInWallet, sellUserMoney, setDisplaySing }
 
 
     function changeValue() {
+
+        if (input2.current.value.length === 0) {
+            // setButtonClassname('btn_inactive');
+            setDisplaySing('none')
+            // setBittonActive(false);
+        }
+        else if (input1.current.value.length !== 0 || input2.current.value.length !== 0) {
+            // setButtonClassname('button__submit btn__main');
+            // setBittonActive(false);
+        }
+
+
 
         if ((sratrBalanseInWallet - (+input2.current.value)) >= 0) {
             let res = (+input2.current.value) / actualCourse;
@@ -24,11 +36,13 @@ function BuyUserMoney(props) {
         // якщо недостатньо коштів повертаємо початковий балан рахунків
         else if ((sratrBalanseInWallet - (+input2.current.value)) < 0) {
             alert('Недостатньо коштів на рахунку');
+            console.log(input1.current.value)
             input1.current.value = '';
             input2.current.value = '';
+            console.log(input1.current.value)
             setDisplaySing('none');
             setFinalBalanseRow2(0)
-            // setStartBalanseInWallet(sratrBalanseInWallet)
+
 
             for (let key in userAuthorized[0].money) {
                 if (key === sellUserMoney) {
@@ -62,13 +76,13 @@ function BuyUserMoney(props) {
     }
 
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        if (userAuthorized.length !== undefined) {
-            setNameOfValues(Object.keys(userAuthorized[0].money));
-        }
+    //     if (userAuthorized.length !== undefined) {
+    //         setNameOfValues(Object.keys(userAuthorized[0].money));
+    //     }
 
-    }, [userAuthorized.length])
+    // }, [userAuthorized.length])        це вимкнув
 
     // console.log(resetpage)
     return (
@@ -87,7 +101,7 @@ function BuyUserMoney(props) {
                 </div>
 
                 <div className="right__sell__money">
-                    <div className='row__plus' style={{ display: displaySing }}>{secondRowSign}</div>
+                    <div className='row__plus' style={{ display: displaySing }}>+</div>
                     <input type="number" className='input__sell'
                         placeholder="0"
                         onChange={changeValue}

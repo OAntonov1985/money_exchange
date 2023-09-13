@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import React from 'react';
 
 function SailOfCurrensy(props) {
-    const { finalBalanse, userAuthorized, setAmountCorrency, sellUserMoney, firstRowSign, displaySing, input1, setSellUserMoney, input2, sratrBalanseInWallet, setStartBalanseInWallet, setFinalBalanse, setFinalBalanseRow2, buyUserMoney, setStartBalanseInWalletRow2, setDisplaySing } = props.sellObj;
+    const { finalBalanse, userAuthorized, setAmountCorrency, sellUserMoney, displaySing, input1, setSellUserMoney, input2, sratrBalanseInWallet, setStartBalanseInWallet, setFinalBalanse, setFinalBalanseRow2, buyUserMoney, setStartBalanseInWalletRow2, setDisplaySing } = props.sellObj;
 
     const [nameOfValues, setNameOfValues] = useState([])
 
@@ -84,7 +84,7 @@ function SailOfCurrensy(props) {
                 </div>
                 <div className="right__sell__money">
                     <div className='row__sing'
-                        style={{ display: displaySing }}>{firstRowSign}</div>
+                        style={{ display: displaySing }}>-</div>
                     <input type="number" className='input__sell'
                         placeholder="0"
                         onChange={setAmountCorrency} ref={input1} />

@@ -1,10 +1,9 @@
 import './modal.css';
 import React, { useState, useEffect } from 'react';
-// import sumbols from '../../data/sumbols.json';
 import axios from 'axios';
 
 import Modal from 'react-modal';
-const appRoot = document.getElementById('root'); // Знайдіть кореневий елемент свого додатку
+const appRoot = document.getElementById('root');
 Modal.setAppElement(appRoot);
 
 function ModalWindow(props) {
@@ -34,7 +33,6 @@ function ModalWindow(props) {
         axios.get('https://openexchangerates.org/api/currencies.json')
             .then((response) => {
                 const entries = Object.entries(response.data);
-                console.log('go')
                 setInitialValueOfArray(entries);
             })
             .catch((error) => {

@@ -27,7 +27,7 @@
     text-align: center;
 }
 .btn__main {
-    width: 370px;
+    width: 432px;
 }
 
 .left__sell__money {
@@ -99,4 +99,19 @@ input[type="number"]::-webkit-outer-spin-button {
 .currency__fullnamed {
     font-size: 12px;
     opacity: 40%;
+}
+
+.btn_inactive {
+    opacity: 25%;
+    width: 432px;
+    background-color: black;
+    color: white;
+    border-radius: 20px;
+    padding: 7px;
+}
+
+.btn_inactive:hover {
+    opacity: 25%;
+    background-color: black;
+    color: white;
 }
