@@ -13,12 +13,9 @@ function CurrencyRates(props) {
                     setActualCourse(parseFloat(data.rates[key].toFixed(2)));
                 }
             }
-            // setActualCourse(data.rates.EUR);
-            // console.log(data.rates)
-            // setLoading(false);
 
         } catch (error) {
-            // setLoading(false);
+            alert('Помилка зєднання');
         }
     }
     fetchCurrencyRates();

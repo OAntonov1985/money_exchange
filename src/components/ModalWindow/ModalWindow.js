@@ -7,7 +7,7 @@ const appRoot = document.getElementById('root');
 Modal.setAppElement(appRoot);
 
 function ModalWindow(props) {
-    const { isModalOpen, setIsModalOpen, setBuyUserMoney, setStartBalanseInWalletRow2, userAuthorized, setFinalBalanseRow2, setStartBalanseInWallet, setFinalBalanse, sellUserMoney, setDisplaySing } = props.obj
+    const { isModalOpen, setIsModalOpen, setBuyUserMoney, setStartBalanseInWalletRow2, userAuthorized, setFinalBalanseRow2, setStartBalanseInWallet, setFinalBalanse, sellUserMoney, setDisplaySing, input2, input1, } = props.obj
 
     const [initialValueOfArray, setInitialValueOfArray] = useState([]);
     const [selectedCurrency, setSelectedCurrency] = useState('');
@@ -46,10 +46,8 @@ function ModalWindow(props) {
 
 
 
+
     let filteredResults;
-
-
-    // console.log(Object.entries(sumbols))
 
 
     const handleSearchChange = (event) => {
@@ -59,19 +57,17 @@ function ModalWindow(props) {
         );
         setInitialValueOfArray(filteredResults)
     };
-    // console.log(filteredResults)
-
 
 
     function catchNameOfСurrency(abbreviation) {
         setBuyUserMoney(abbreviation);
         setIsModalOpen(false);
         setDisplaySing('none')
+        input1.current.value = '';
+        input2.current.value = '';
         for (let key in userAuthorized[0].money) {
             if (key === abbreviation) {
                 setStartBalanseInWalletRow2(userAuthorized[0].money[key]);
-                console.log(filteredResults)
-
                 break
             }
             else {
@@ -86,8 +82,6 @@ function ModalWindow(props) {
             }
         }
     }
-
-
 
     return (
         <>

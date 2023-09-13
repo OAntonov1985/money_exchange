@@ -12,7 +12,6 @@ function SailOfCurrensy(props) {
         setDisplaySing('none')
         for (let key in userAuthorized[0].money) {
             if (key === event.target.value) {
-                setFinalBalanse(0)
                 setStartBalanseInWallet(userAuthorized[0].money[key])
                 setSellUserMoney(key);
                 input1.current.value = '';
@@ -35,33 +34,6 @@ function SailOfCurrensy(props) {
         }
 
     }, [userAuthorized.length])
-    // console.log(balanse2)
-
-
-
-
-    // function clearInput() {
-    //     setAmountСurrencyToSell('')
-    // }
-
-    // function test() {
-    //     // console.log(event.target)
-    //     for (let key in userAuthorized[0].money) {
-    //         if (key === sellUserMoney) {
-    //             setBalanse(userAuthorized[0].money[key])
-    //         }
-    //     }
-
-    //     for (let key in userAuthorized[0].money) {
-    //         if (key === "EUR") {
-    //             setBalanseBuy(userAuthorized[0].money[key])
-    //         }
-    //     }
-
-    //     setAmountСurrencyToSell(0);
-    //     setAmountСurrencyToBuy(0);
-    // }
-
 
 
 

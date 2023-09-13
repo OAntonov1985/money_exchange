@@ -1,13 +1,16 @@
-import '../ModalWindow/modal.css'
-import './main.css'
+import '../ModalWindow/modal.css';
+import './main.css';
+
 
 import React from 'react';
 import { useState, useEffect } from 'react';
+
 
 import CurrencyRates from '../CurrencyRates/CurrencyRates';
 import SailOfCurrensy from '../SailOfCurrensy/SailOfCurrensy';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 import BuyUserMoney from '../BuyUserMoney/BuyUserMoney';
+import ModalFinishDeal from '../ModalFinishDeal/ModalFinishDeal';
 
 
 export default function Main(props) {
@@ -23,10 +26,15 @@ export default function Main(props) {
     const [finalBalanse, setFinalBalanse] = useState(0); // залишковий баланс рахунку з якого продаємо
     const [finalBalanseRow2, setFinalBalanseRow2] = useState(0);  // залишковий баланс рахунку на який купляємо
 
+    const [amountOfCurrencyRow1, setAmountOfCurrencyRow1] = useState(0); //кількість валюти яку продємо
+    const [amountOfCurrencyRow2, setAmountOfCurrencyRow2] = useState(0); //кількість валюти яку купляємо
+
     const [actualCourse, setActualCourse] = useState(null);   //актуальний курс валюти 
 
     const [displaySing, setDisplaySing] = useState('none');
     const [buttonActive, setBittonActive] = useState(true);
+
+    const [modalMakeDeal, setmodalmakeDeal] = useState(false)
 
     const [buttonClassname, setButtonClassname] = useState('btn_inactive')
     const length = userAuthorized.length;
@@ -39,10 +47,42 @@ export default function Main(props) {
 
     const course = { actualCourse, setActualCourse, sellUserMoney, buyUserMoney };
 
-    const buyObj = { userAuthorized, finalBalanseRow2, setFinalBalanseRow2, buyUserMoney, displaySing, input2, input1, actualCourse, setFinalBalanse, sratrBalanseInWallet, finalBalanse, setDisplaySing, sellUserMoney, setStartBalanseInWallet, setStartBalanseInWalletRow2, sratrBalanseInWalletRow2, setBuyUserMoney }
+    const buyObj = { userAuthorized, finalBalanseRow2, setFinalBalanseRow2, buyUserMoney, displaySing, input2, input1, actualCourse, setFinalBalanse, sratrBalanseInWallet, finalBalanse, setDisplaySing, sellUserMoney, setStartBalanseInWallet, setStartBalanseInWalletRow2, sratrBalanseInWalletRow2, setBuyUserMoney, setAmountCorrency, clearFunction, setAmountOfCurrencyRow2, setAmountOfCurrencyRow1 };
+
+    const modalFinal = { modalMakeDeal, amountOfCurrencyRow1, amountOfCurrencyRow2, sellUserMoney, buyUserMoney, buttonFinalDeal }
+
+    function clearFunction() {
+        input1.current.value = '';
+        input2.current.value = '';
+        setDisplaySing('none');
+        setFinalBalanse(0);
+        setFinalBalanseRow2(0);
+        setAmountOfCurrencyRow1(0);
+        setAmountOfCurrencyRow2(0);
+
+        for (let key in userAuthorized[0].money) {
+            if (key === sellUserMoney) {
+                setStartBalanseInWallet(userAuthorized[0].money[key])
+            }
+        }
+
+        for (let key in userAuthorized[0].money) {
+            if (key === buyUserMoney) {
+                setStartBalanseInWalletRow2(userAuthorized[0].money[key]);
+                break
+            }
+            else if (key !== buyUserMoney) {
+                setStartBalanseInWalletRow2(0);
+            }
+        }
+    }
 
 
     function setAmountCorrency(event) {
+        setAmountOfCurrencyRow1(parseFloat((+input1.current.value).toFixed(2)));
+        setAmountOfCurrencyRow2(parseFloat((+input2.current.value * 10).toFixed(2)));
+
+
         // змінюємо баланс на рахунку після вводу в input
         setFinalBalanse(parseFloat((sratrBalanseInWallet - (+input1.current.value)).toFixed(2)))
         setFinalBalanseRow2(parseFloat((sratrBalanseInWalletRow2 + (+input1.current.value) * actualCourse).toFixed(2)))
@@ -57,36 +97,20 @@ export default function Main(props) {
         // якщо недостатньо коштів повертаємо початковий балан рахунків
         else if (result < 0) {
             alert('Недостатньо коштів на рахунку');
-            input1.current.value = '';
-            input2.current.value = '';
-            setDisplaySing('none');
-            setFinalBalanse(0);
-            setFinalBalanseRow2(0);
-            setDisplaySing('none')
-
-
-            for (let key in userAuthorized[0].money) {
-                if (key === sellUserMoney) {
-                    setStartBalanseInWallet(userAuthorized[0].money[key])
-                }
-            }
-
-            for (let key in userAuthorized[0].money) {
-                if (key === buyUserMoney) {
-                    setStartBalanseInWalletRow2(userAuthorized[0].money[key]);
-                    break
-                }
-                else if (key !== buyUserMoney) {
-                    setStartBalanseInWalletRow2(0);
-                }
-            }
+            clearFunction()
         }
     }
 
 
 
     function buttonPushToMakeDeal() {
-        console.log(777)
+        setmodalmakeDeal(true);
+    }
+
+    function buttonFinalDeal() {
+        setmodalmakeDeal(false);
+        clearFunction()
+
     }
 
 
@@ -99,13 +123,12 @@ export default function Main(props) {
             input2.current.value = '';
         }
         else if (input1.current.value.length !== 0 || input2.current.value.length !== 0) {
-            console.log(input1.current.value.length);
             setButtonClassname('button__submit btn__main');
+            setDisplaySing('block')
             setBittonActive(false);
         }
 
     }, [input1, input2])
-
 
     return (
         <>  {length !== undefined ?
@@ -114,14 +137,15 @@ export default function Main(props) {
                 </div>
                 <CurrencyRates course={course} />
                 <SailOfCurrensy sellObj={sellObj} />
-
                 <BuyUserMoney buyObj={buyObj} />
-
+                <ModalFinishDeal modalFinal={modalFinal} />
                 <div className="submit__deal">
-                    <button className={buttonClassname}
+                    <button
+                        className={buttonClassname}
                         disabled={buttonActive}
                         onClick={buttonPushToMakeDeal}>
-                        Продати {sellUserMoney} і купити {buyUserMoney} </button>
+                        Продати {sellUserMoney} і купити {buyUserMoney}
+                    </button>
                 </div>
             </div> : <ErrorBoundary />}
         </>
@@ -130,8 +154,4 @@ export default function Main(props) {
 
 
 
-// кнопка активная- неактивная
-// подсвет о недостаточности средств
-/// звакритие на области
-// поиск
-// ловля ошибок
+

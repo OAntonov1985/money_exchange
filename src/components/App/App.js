@@ -12,19 +12,7 @@ import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 
 
 function App() {
-  const [userAuthorized, setUserAuthorized] = useState([
-    {
-      "username": "user1",
-      "email": "user1@example.com",
-      "password": "password1",
-      "tel": "+1234567890",
-      "money": {
-        "USD": 15000.00,
-        "EUR": 600,
-        "GBP": 750.00,
-        "JPY": 130000.00
-      }
-    }]) // чи авторизований юзер
+  const [userAuthorized, setUserAuthorized] = useState({}) // чи авторизований юзер
 
 
   const setUserDataHandler = (data) => {

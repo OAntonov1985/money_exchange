@@ -115,3 +115,13 @@ input[type="number"]::-webkit-outer-spin-button {
     background-color: black;
     color: white;
 }
+
+.modal__final__result {
+    width: 500px;
+    height: 150px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+}
