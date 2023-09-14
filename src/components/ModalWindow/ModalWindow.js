@@ -13,22 +13,6 @@ function ModalWindow(props) {
     const [selectedCurrency, setSelectedCurrency] = useState('');
 
 
-    // let [sumbolsOfValues, setSumbolsOfValues] = useState(sumbols);
-
-    // function findAnotherСurrency(event) {
-    //     let string = event.target.value
-    //     console.log(string.toUpperCase())
-    //     // setIsModalOpen(true)
-    // }
-
-    // function catchNameOfСurrency(event) {
-    //     console.log(event.target.textContent)
-    //     setBuyUserMoney(event.target.textContent)
-    //     setIsModalOpen(false)
-    // }
-
-
-
     useEffect(() => {
         axios.get('https://openexchangerates.org/api/currencies.json')
             .then((response) => {
@@ -36,35 +20,28 @@ function ModalWindow(props) {
                 setInitialValueOfArray(entries);
             })
             .catch((error) => {
-                console.error('Ошибка при запросе:', error);
+                alert('Помилка при запиті на сервер:', error);
             });
-    }, []);
+    }, [isModalOpen]);
 
 
-
-
-
-
-
-
-    let filteredResults;
-
-
-    const handleSearchChange = (event) => {
+    function handleSearchChange(event) {
         setSelectedCurrency(event.target.value);
-        filteredResults = initialValueOfArray.filter(([abbreviation]) =>
+        const filteredResults = initialValueOfArray.filter(([abbreviation]) =>
             abbreviation.toLowerCase().includes(selectedCurrency.toLowerCase())
         );
-        setInitialValueOfArray(filteredResults)
+        setInitialValueOfArray(filteredResults);
     };
 
 
     function catchNameOfСurrency(abbreviation) {
         setBuyUserMoney(abbreviation);
         setIsModalOpen(false);
-        setDisplaySing('none')
+        setDisplaySing('none');
+        setSelectedCurrency('');
         input1.current.value = '';
         input2.current.value = '';
+
         for (let key in userAuthorized[0].money) {
             if (key === abbreviation) {
                 setStartBalanseInWalletRow2(userAuthorized[0].money[key]);
