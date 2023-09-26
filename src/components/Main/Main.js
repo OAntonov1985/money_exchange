@@ -79,6 +79,7 @@ export default function Main(props) {
 
 
     function setAmountCorrency(event) {
+        console.log(777)
         setAmountOfCurrencyRow1(parseFloat((+input1.current.value).toFixed(2)));
         setAmountOfCurrencyRow2(parseFloat((+input2.current.value * 10).toFixed(2)));
 
@@ -104,10 +105,12 @@ export default function Main(props) {
 
 
     function buttonPushToMakeDeal() {
+        console.log(888)
         setmodalmakeDeal(true);
     }
 
     function buttonFinalDeal() {
+        console.log(999)
         setmodalmakeDeal(false);
         clearFunction()
 
@@ -115,6 +118,7 @@ export default function Main(props) {
 
 
     useEffect(() => {
+        console.log(333)
 
         if (input1.current.value.length === 0 || input2.current.value.length === 0) {
             setButtonClassname('btn_inactive');
