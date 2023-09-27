@@ -1,6 +1,6 @@
 
 function CurrencyRates(props) {
-    const { actualCourse, setActualCourse, sellUserMoney, buyUserMoney } = props.course
+    const { actualCourse, setActualCourse, sellUserMoney, buyUserMoney } = props.course;
 
     async function fetchCurrencyRates() {
         try {

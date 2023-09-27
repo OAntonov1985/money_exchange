@@ -1,9 +1,9 @@
 import '../ModalWindow/modal.css';
 import './main.css';
 
-
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 
 import CurrencyRates from '../CurrencyRates/CurrencyRates';
@@ -22,6 +22,14 @@ export default function Main(props) {
     const [sratrBalanseInWallet, setStartBalanseInWallet] = useState(userAuthorized[0].money.USD)
     const [sratrBalanseInWalletRow2, setStartBalanseInWalletRow2] = useState(userAuthorized[0].money.EUR)
     // стартовий баланс валют в гаманці
+    const someData = useSelector((state) => console.log(state.userInfo));
+    const testuserMoney = useSelector((state) => state.userMoney);
+    console.log(testuserMoney)
+
+
+
+
+
 
     const [finalBalanse, setFinalBalanse] = useState(0); // залишковий баланс рахунку з якого продаємо
     const [finalBalanseRow2, setFinalBalanseRow2] = useState(0);  // залишковий баланс рахунку на який купляємо
