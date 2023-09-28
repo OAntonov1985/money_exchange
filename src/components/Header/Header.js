@@ -1,8 +1,18 @@
 import { useEffect, useState } from 'react';
-import './header.css'
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
+import './header.css'
+
+
 export default function Header(props) {
+
+    const userInfo = useSelector((state) => state.addUser);
+    useEffect(() => {
+        console.log('Компонент Header');
+    }, []);
+
+    // console.log('renderHeader')
     const { userAuthorized, setUserDataHandler } = props;
     const [displayHelloText, setDisplayHelloText] = useState('block')
     const [displayAutorizerUser, setDisplayAutorizerUser] = useState('none')
@@ -44,7 +54,7 @@ export default function Header(props) {
                     <div className='hello__user' >Вітаємо в додатку обміну валют</div>
                     <div className='hello__user__autorization'>Виповніть авторизацію для доспуту до рахунків</div>
                 </div>
-                {length !== undefined ? <div className='greetings__user' style={{ display: displayAutorizerUser }}>З поверненням, {userAuthorized[0].username}
+                {userInfo !== undefined ? <div className='greetings__user' style={{ display: displayAutorizerUser }}>З поверненням, {userAuthorized[0].username}
                 </div> : null}
 
                 <div className='user__info' style={{ display: displayAutorizerUser }}>

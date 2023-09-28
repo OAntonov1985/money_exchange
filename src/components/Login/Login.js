@@ -1,9 +1,17 @@
-import './login.css'
-import React, { useState } from 'react';
+import './login.css';
+import { useSelector, useDispatch } from "react-redux";
+import { addUser, addUserMoney } from '../App/store2'
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import data from '../../data/data.json'
 
 export default function Login(props) {
+    // console.log('renderLogin')
+    const dispatch = useDispatch();
+
+    const userInfo = useSelector((state) => state.addUser);
+    // console.log(userInfo)
+
     const { setUserDataHandler } = props;
     const [userEmail, setUserEmail] = useState('')
     const [userPassword, setUserPassword] = useState('')
@@ -21,11 +29,17 @@ export default function Login(props) {
         event.preventDefault()
         const result = data.users.filter(user => (user.email === userEmail && user.password === userPassword))
         if (result.length !== 0) {
-            setUserDataHandler(result)
+            dispatch(addUser(result));
+            dispatch(addUserMoney(result));
+            // setUserDataHandler(result)
             navigate('/main');
         }
         else (alert('Користувача не знайдено'))
     }
+
+    useEffect(() => {
+        console.log('Компонент Login');
+    }, []);
 
     return (
         <>

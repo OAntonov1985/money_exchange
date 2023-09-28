@@ -1,9 +1,9 @@
 import '../ModalWindow/modal.css';
 import './main.css';
 
-
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 
 import CurrencyRates from '../CurrencyRates/CurrencyRates';
@@ -14,14 +14,24 @@ import ModalFinishDeal from '../ModalFinishDeal/ModalFinishDeal';
 
 
 export default function Main(props) {
+
+    const userInfo = useSelector((state) => console.log(state.userInfo));
+    const userMoney = useSelector((state) => state.userMoney);
+    console.log(userMoney)
     const { userAuthorized } = props;
 
     const [sellUserMoney, setSellUserMoney] = useState('USD');  // назва валюти яку продаємо
     const [buyUserMoney, setBuyUserMoney] = useState('EUR'); // назва валюти яку купляємо
 
-    const [sratrBalanseInWallet, setStartBalanseInWallet] = useState(userAuthorized[0].money.USD)
-    const [sratrBalanseInWalletRow2, setStartBalanseInWalletRow2] = useState(userAuthorized[0].money.EUR)
+    const [sratrBalanseInWallet, setStartBalanseInWallet] = useState(userMoney.USD)
+    const [sratrBalanseInWalletRow2, setStartBalanseInWalletRow2] = useState(userMoney.EUR)
     // стартовий баланс валют в гаманці
+
+
+
+
+
+
 
     const [finalBalanse, setFinalBalanse] = useState(0); // залишковий баланс рахунку з якого продаємо
     const [finalBalanseRow2, setFinalBalanseRow2] = useState(0);  // залишковий баланс рахунку на який купляємо
@@ -135,7 +145,7 @@ export default function Main(props) {
     }, [input1, input2])
 
     return (
-        <>  {length !== undefined ?
+        <>  {userInfo !== undefined ?
             <div className='main__page'>
                 <div className='moneyOpsion'><div>Продаж {sellUserMoney}</div>
                 </div>

@@ -1,16 +1,19 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
+import { useSelector } from 'react-redux'
 
 function SailOfCurrensy(props) {
     const { finalBalanse, userAuthorized, setAmountCorrency, sellUserMoney, displaySing, input1, setSellUserMoney, input2, sratrBalanseInWallet, setStartBalanseInWallet, setFinalBalanse, setFinalBalanseRow2, buyUserMoney, setStartBalanseInWalletRow2, setDisplaySing } = props.sellObj;
 
     const [nameOfValues, setNameOfValues] = useState([])
 
+    const testuserMoney = useSelector((state) => state.userMoney);
+
     function selectMoneyInVallet(event) {
         setFinalBalanse(0);
         setFinalBalanseRow2(0);
         setDisplaySing('none')
-        for (let key in userAuthorized[0].money) {
+        for (let key in testuserMoney) {
             if (key === event.target.value) {
                 setStartBalanseInWallet(userAuthorized[0].money[key])
                 setSellUserMoney(key);
@@ -19,7 +22,7 @@ function SailOfCurrensy(props) {
             }
         }
 
-        for (let key in userAuthorized[0].money) {
+        for (let key in testuserMoney) {
             if (key === buyUserMoney) {
                 setStartBalanseInWalletRow2(userAuthorized[0].money[key])
 
