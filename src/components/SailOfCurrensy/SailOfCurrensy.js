@@ -1,15 +1,19 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
 import { useSelector } from 'react-redux'
+// import { rates } from '../HelperFunctions/fetchCurrencyRates'
+// import { ratesAnotherbase } from '../HelperFunctions/useRatesAnotherbase '
+import useRatesAnotherbase from '../HelperFunctions/useRatesAnotherbase ';
 
 function SailOfCurrensy(props) {
     const { finalBalanse, userAuthorized, setAmountCorrency, sellUserMoney, displaySing, input1, setSellUserMoney, input2, sratrBalanseInWallet, setStartBalanseInWallet, setFinalBalanse, setFinalBalanseRow2, buyUserMoney, setStartBalanseInWalletRow2, setDisplaySing, setAmountOfCurrencyRow1 } = props.sellObj;
 
     const [nameOfValues, setNameOfValues] = useState([]);
 
-
     const userMoney = useSelector((state) => state.userMoney);
-    console.log(Object.keys(userMoney).length);
+    const rates = useSelector((state) => console.log(state.actualCourseAnoterBase));
+
+    const { fetchRates } = useRatesAnotherbase();
 
     function selectMoneyInVallet(event) {
         setFinalBalanse(0);
@@ -17,16 +21,18 @@ function SailOfCurrensy(props) {
         setDisplaySing('none')
         for (let key in userMoney) {
             if (key === event.target.value) {
-                setStartBalanseInWallet(userMoney.money[key])
+                setStartBalanseInWallet(userMoney[key])
                 setSellUserMoney(key);
                 input1.current.value = '';
                 input2.current.value = '';
+                fetchRates(key);
+
             }
         }
 
         for (let key in userMoney) {
             if (key === buyUserMoney) {
-                setStartBalanseInWalletRow2(userAuthorized[0].money[key])
+                setStartBalanseInWalletRow2(userMoney[key])
 
             }
         }

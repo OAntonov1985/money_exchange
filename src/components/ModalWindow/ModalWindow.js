@@ -86,4 +86,4 @@ function ModalWindow(props) {
     )
 }
 
-export default ModalWindow
+export default React.memo(ModalWindow);

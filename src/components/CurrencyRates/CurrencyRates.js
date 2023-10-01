@@ -1,31 +1,45 @@
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { actualCourseAnoterBase } from '../App/store2'
+
 
 function CurrencyRates(props) {
     const { actualCourse, setActualCourse, sellUserMoney, buyUserMoney } = props.course;
 
-    async function fetchCurrencyRates() {
-        try {
-            const response = await fetch(
-                `https://api.exchangerate.host/latest?base=${sellUserMoney}`
-            );
-            const data = await response.json();
-            for (let key in data.rates) {
+    const actualRates = useSelector((state) => state.actualCourse.rates);
+    const rates = useSelector((state) => state.actualCourseAnoterBase);
+    // console.log(actualRates)
+    // console.log(actualRatesAnotherBase)
+
+    useEffect(() => {
+        if (rates === undefined) {
+            for (let key in actualRates) {
                 if (key === buyUserMoney) {
-                    setActualCourse(parseFloat(data.rates[key].toFixed(2)));
+                    console.log(rates)
+                    setActualCourse(parseFloat(actualRates[key].toFixed(2)));
                 }
             }
-
-        } catch (error) {
-            alert('Помилка зєднання');
         }
-    }
-    fetchCurrencyRates();
+        else {
+            for (let key in rates) {
+                if (key === buyUserMoney) {
+                    console.log(rates)
+                    setActualCourse(parseFloat(actualRates[key].toFixed(2)));
+                }
+            }
+        }
+    }, [actualCourse, rates])
 
 
     return (
         <>
-            <div className='actualCourse'>Актуальний курс: 1 {sellUserMoney} = {actualCourse} {buyUserMoney}</div>
+            {!actualCourse ? 'Loading' :
+                <div className='actualCourse'>Актуальний курс: 1 {sellUserMoney} = {actualCourse} {buyUserMoney}</div>
+            }
+
         </>
     )
 }
 
-export default CurrencyRates
+export default React.memo(CurrencyRates);

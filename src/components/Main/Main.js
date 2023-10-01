@@ -13,11 +13,12 @@ import BuyUserMoney from '../BuyUserMoney/BuyUserMoney';
 import ModalFinishDeal from '../ModalFinishDeal/ModalFinishDeal';
 
 
-export default function Main(props) {
+function Main(props) {
 
-    const userInfo = useSelector((state) => console.log(state.userInfo));
+    const userInfo = useSelector((state) => state.userInfo);
     const userMoney = useSelector((state) => state.userMoney);
-    console.log(userMoney)
+    // console.log(userInfo.length)
+    const lengthArr = Object.keys(userInfo).length
     const { userAuthorized } = props;
 
     const [sellUserMoney, setSellUserMoney] = useState('USD');  // назва валюти яку продаємо
@@ -129,7 +130,7 @@ export default function Main(props) {
 
 
     useEffect(() => {
-        console.log(input1)
+        // console.log(input1)
 
         // if (input1.current.value.length === 0 || input2.current.value.length === 0) {
         //     setButtonClassname('btn_inactive');
@@ -146,7 +147,7 @@ export default function Main(props) {
     }, [input1, input2])
 
     return (
-        <>  {userInfo === undefined ?
+        <>  {lengthArr !== 0 ?
             <div className='main__page'>
                 <div className='moneyOpsion'><div>Продаж {sellUserMoney}</div>
                 </div>
@@ -166,6 +167,8 @@ export default function Main(props) {
         </>
     );
 }
+
+export default React.memo(Main);
 
 
 

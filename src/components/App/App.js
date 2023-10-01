@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useState } from 'react';
+import React from 'react';
 
 import Start from '../Srart/Start';
 import Header from '../Header/Header'
@@ -44,10 +45,10 @@ function App() {
                     <Route path="/userinfo" element={<UserInfo userAuthorized={userAuthorized} />} />
                     <Route path="/error" element={<ErrorBoundary userAuthorized={userAuthorized} />} />
                 </Routes>
-                <Footer />
             </Router>
+            <Footer />
         </>
     );
 }
 
-export default App;
+export default React.memo(App);
