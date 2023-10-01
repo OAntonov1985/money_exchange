@@ -3,26 +3,28 @@ import React from 'react';
 import { useSelector } from 'react-redux'
 
 function SailOfCurrensy(props) {
-    const { finalBalanse, userAuthorized, setAmountCorrency, sellUserMoney, displaySing, input1, setSellUserMoney, input2, sratrBalanseInWallet, setStartBalanseInWallet, setFinalBalanse, setFinalBalanseRow2, buyUserMoney, setStartBalanseInWalletRow2, setDisplaySing } = props.sellObj;
+    const { finalBalanse, userAuthorized, setAmountCorrency, sellUserMoney, displaySing, input1, setSellUserMoney, input2, sratrBalanseInWallet, setStartBalanseInWallet, setFinalBalanse, setFinalBalanseRow2, buyUserMoney, setStartBalanseInWalletRow2, setDisplaySing, setAmountOfCurrencyRow1 } = props.sellObj;
 
-    const [nameOfValues, setNameOfValues] = useState([])
+    const [nameOfValues, setNameOfValues] = useState([]);
 
-    const testuserMoney = useSelector((state) => state.userMoney);
+
+    const userMoney = useSelector((state) => state.userMoney);
+    console.log(Object.keys(userMoney).length);
 
     function selectMoneyInVallet(event) {
         setFinalBalanse(0);
         setFinalBalanseRow2(0);
         setDisplaySing('none')
-        for (let key in testuserMoney) {
+        for (let key in userMoney) {
             if (key === event.target.value) {
-                setStartBalanseInWallet(userAuthorized[0].money[key])
+                setStartBalanseInWallet(userMoney.money[key])
                 setSellUserMoney(key);
                 input1.current.value = '';
                 input2.current.value = '';
             }
         }
 
-        for (let key in testuserMoney) {
+        for (let key in userMoney) {
             if (key === buyUserMoney) {
                 setStartBalanseInWalletRow2(userAuthorized[0].money[key])
 
@@ -32,8 +34,9 @@ function SailOfCurrensy(props) {
 
     useEffect(() => {
 
-        if (userAuthorized.length !== undefined) {
-            setNameOfValues(Object.keys(userAuthorized[0].money));
+        if (Object.keys(userMoney).length !== undefined) {
+            setNameOfValues(Object.keys(userMoney));
+            console.log(nameOfValues)
         }
 
     }, [userAuthorized.length])

@@ -9,7 +9,7 @@ function BuyUserMoney(props) {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const obj = { isModalOpen, setIsModalOpen, setBuyUserMoney, setStartBalanseInWalletRow2, userAuthorized, setFinalBalanseRow2, setFinalBalanse, setStartBalanseInWallet, sellUserMoney, setDisplaySing, input2, input1 }
+    const obj = { isModalOpen, setIsModalOpen, setBuyUserMoney, setStartBalanseInWalletRow2, userAuthorized, setFinalBalanseRow2, setFinalBalanse, setStartBalanseInWallet, sellUserMoney, setDisplaySing, input2, input1, setAmountOfCurrencyRow2 }
 
 
     function changeValue() {

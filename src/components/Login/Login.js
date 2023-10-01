@@ -21,6 +21,10 @@ export default function Login(props) {
         setUserEmail(event.target.value)
     }
 
+    function test(event) {
+        console.log(event.target.value)
+    }
+
     function userPasswordGet(event) {
         setUserPassword(event.target.value)
     }
@@ -35,6 +39,7 @@ export default function Login(props) {
             navigate('/main');
         }
         else (alert('Користувача не знайдено'))
+
     }
 
     useEffect(() => {

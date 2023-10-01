@@ -87,8 +87,9 @@ export default function Main(props) {
         }
     }
 
-
+    // console.log(userInfo)
     function setAmountCorrency(event) {
+        console.log(event)
         console.log(777)
         setAmountOfCurrencyRow1(parseFloat((+input1.current.value).toFixed(2)));
         setAmountOfCurrencyRow2(parseFloat((+input2.current.value * 10).toFixed(2)));
@@ -128,24 +129,24 @@ export default function Main(props) {
 
 
     useEffect(() => {
-        console.log(333)
+        console.log(input1)
 
-        if (input1.current.value.length === 0 || input2.current.value.length === 0) {
-            setButtonClassname('btn_inactive');
-            setDisplaySing('none')
-            input1.current.value = '';
-            input2.current.value = '';
-        }
-        else if (input1.current.value.length !== 0 || input2.current.value.length !== 0) {
-            setButtonClassname('button__submit btn__main');
-            setDisplaySing('block')
-            setBittonActive(false);
-        }
+        // if (input1.current.value.length === 0 || input2.current.value.length === 0) {
+        //     setButtonClassname('btn_inactive');
+        //     setDisplaySing('none')
+        //     input1.current.value = '';
+        //     input2.current.value = '';
+        // }
+        // else if (input1.current.value.length !== 0 || input2.current.value.length !== 0) {
+        //     setButtonClassname('button__submit btn__main');
+        //     setDisplaySing('block')
+        //     setBittonActive(false);
+        // }
 
     }, [input1, input2])
 
     return (
-        <>  {userInfo !== undefined ?
+        <>  {userInfo === undefined ?
             <div className='main__page'>
                 <div className='moneyOpsion'><div>Продаж {sellUserMoney}</div>
                 </div>

@@ -1,7 +1,8 @@
 import { createSlice, configureStore, createAsyncThunk } from "@reduxjs/toolkit";
+const key = '167d57c9ec214838861c8a6de1d14489';
 
 export const fetchActualCourse = createAsyncThunk('actualCourse/fetchCourse', async () => {
-    const response = await fetch(`https://api.exchangerate.host/latest?base=USD`);
+    const response = await fetch(`https://openexchangerates.org/api/latest.json?app_id=${key}`);
     console.log("API")
     const data = await response.json();
     return data;

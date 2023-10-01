@@ -2,8 +2,9 @@
     "users": [
       {
         "username": "user1",
-        "email": "user1@example.com",
-        "password": "password1",
+        
+        "email": "333",
+        "password": "444",
         "tel": "+1234567890",
         "money": {
           "USD": 10012.36,
