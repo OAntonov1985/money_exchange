@@ -1,22 +1,23 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { actualCourseAnoterBase } from '../App/store2'
+import { useEffect, useState } from 'react';
+import { valueForSail, actualCourse, } from '../App/store2'
 
 
 function CurrencyRates(props) {
-    const { actualCourse, setActualCourse, sellUserMoney, buyUserMoney } = props.course;
+    const { sellUserMoney, buyUserMoney } = props.course;
+    const [actualCourse, setActualCourse] = useState(0)
+
 
     const actualRates = useSelector((state) => state.actualCourse.rates);
+    const valueForSail = useSelector((state) => state.valueForSail);
     const rates = useSelector((state) => state.actualCourseAnoterBase);
-    // console.log(actualRates)
-    // console.log(actualRatesAnotherBase)
+
 
     useEffect(() => {
-        if (rates === undefined) {
+        if (Object.keys(rates).length === 0) {
             for (let key in actualRates) {
                 if (key === buyUserMoney) {
-                    console.log(rates)
                     setActualCourse(parseFloat(actualRates[key].toFixed(2)));
                 }
             }
@@ -24,13 +25,11 @@ function CurrencyRates(props) {
         else {
             for (let key in rates) {
                 if (key === buyUserMoney) {
-                    console.log(rates)
-                    setActualCourse(parseFloat(actualRates[key].toFixed(2)));
+                    setActualCourse(parseFloat(rates[key].value.toFixed(2)));
                 }
             }
         }
     }, [actualCourse, rates])
-
 
     return (
         <>

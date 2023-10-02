@@ -1,17 +1,15 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
-import { useSelector } from 'react-redux'
-// import { rates } from '../HelperFunctions/fetchCurrencyRates'
-// import { ratesAnotherbase } from '../HelperFunctions/useRatesAnotherbase '
+import { useSelector } from 'react-redux';
+import Row1Left from '../Row1/Row1Left';
 import useRatesAnotherbase from '../HelperFunctions/useRatesAnotherbase ';
 
 function SailOfCurrensy(props) {
-    const { finalBalanse, userAuthorized, setAmountCorrency, sellUserMoney, displaySing, input1, setSellUserMoney, input2, sratrBalanseInWallet, setStartBalanseInWallet, setFinalBalanse, setFinalBalanseRow2, buyUserMoney, setStartBalanseInWalletRow2, setDisplaySing, setAmountOfCurrencyRow1 } = props.sellObj;
+    const { finalBalanse, setAmountCorrency, sellUserMoney, displaySing, input1, setSellUserMoney, input2, sratrBalanseInWallet, setStartBalanseInWallet, setFinalBalanse, setFinalBalanseRow2, buyUserMoney, setStartBalanseInWalletRow2, setDisplaySing, setAmountOfCurrencyRow1 } = props.sellObj;
 
     const [nameOfValues, setNameOfValues] = useState([]);
 
     const userMoney = useSelector((state) => state.userMoney);
-    const rates = useSelector((state) => console.log(state.actualCourseAnoterBase));
 
     const { fetchRates } = useRatesAnotherbase();
 
@@ -26,7 +24,6 @@ function SailOfCurrensy(props) {
                 input1.current.value = '';
                 input2.current.value = '';
                 fetchRates(key);
-
             }
         }
 
@@ -42,10 +39,9 @@ function SailOfCurrensy(props) {
 
         if (Object.keys(userMoney).length !== undefined) {
             setNameOfValues(Object.keys(userMoney));
-            console.log(nameOfValues)
         }
 
-    }, [userAuthorized.length])
+    }, [Object.keys(userMoney).length])
 
 
 
@@ -78,4 +74,4 @@ function SailOfCurrensy(props) {
     )
 }
 
-export default SailOfCurrensy
+export default React.memo(SailOfCurrensy);

@@ -25,7 +25,9 @@ const userInfo = createSlice({
         },
         actualCourseAnoterBase: {
 
-        }
+        },
+        valueForSail: "USD",
+        valueForBuy: "EUR",
     },
     reducers: {
         addUser: {
@@ -42,6 +44,12 @@ const userInfo = createSlice({
             reducer: (state, action) => {
                 state.actualCourseAnoterBase = action.payload
             },
+        },
+        addValueForSail: {
+            reducer: (state, action) => {
+                console.log(action.payload)
+                state.actualCourseAnoterBase = action.payload
+            },
         }
     },
     extraReducers: (builder) => {
@@ -51,7 +59,7 @@ const userInfo = createSlice({
     },
 });
 
-export const { addUser, addUserMoney, actualRatesAnotherBase } = userInfo.actions;
+export const { addUser, addUserMoney, actualRatesAnotherBase, addValueForSail } = userInfo.actions;
 
 export const store = configureStore({
     reducer: userInfo.reducer,

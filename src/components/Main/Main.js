@@ -56,7 +56,7 @@ function Main(props) {
 
     const sellObj = { finalBalanse, userAuthorized, setFinalBalanse, setAmountCorrency, sellUserMoney, displaySing, input1, setSellUserMoney, input2, sratrBalanseInWallet, setStartBalanseInWallet, setFinalBalanseRow2, buyUserMoney, setStartBalanseInWalletRow2, setDisplaySing };
 
-    const course = { actualCourse, setActualCourse, sellUserMoney, buyUserMoney };
+    const course = { sellUserMoney, buyUserMoney };
 
     const buyObj = { userAuthorized, finalBalanseRow2, setFinalBalanseRow2, buyUserMoney, displaySing, input2, input1, actualCourse, setFinalBalanse, sratrBalanseInWallet, finalBalanse, setDisplaySing, sellUserMoney, setStartBalanseInWallet, setStartBalanseInWalletRow2, sratrBalanseInWalletRow2, setBuyUserMoney, setAmountCorrency, clearFunction, setAmountOfCurrencyRow2, setAmountOfCurrencyRow1 };
 

@@ -1,5 +1,5 @@
 import '../ModalWindow/modal.css'
-import { useState } from 'react';
+import React, { useState } from 'react';
 import ModalWindow from '../ModalWindow/ModalWindow';
 
 
@@ -54,7 +54,7 @@ function BuyUserMoney(props) {
                         <div value={buyUserMoney} onChange={changeMoneyInVallet2} onClick={findAnotherСurrency}> {buyUserMoney}
                         </div>
                     </div>
-                    <ModalWindow obj={obj} />
+                    {/* <ModalWindow obj={obj} /> */}
                     <div className="balanse">Баланс Вашого рахунку: <br />
                         {finalBalanseRow2 === 0 ? sratrBalanseInWalletRow2 : finalBalanseRow2}  {buyUserMoney}
                     </div>
@@ -71,4 +71,4 @@ function BuyUserMoney(props) {
     )
 }
 
-export default BuyUserMoney;
+export default React.memo(BuyUserMoney);;

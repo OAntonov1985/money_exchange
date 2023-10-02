@@ -22,7 +22,7 @@ function Login() {
                     validate={values => {
                         const errors = {};
                         if (!values.email) {
-                            errors.email = 'Required';
+                            errors.email = 'Помилка введення пошти';
                         } else if (
                             !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
                         ) {
@@ -48,7 +48,7 @@ function Login() {
                     {({ isSubmitting }) => (
                         <Form className='user__avtorization__form'>
                             <Field type="email" name="email" placeholder='Введіть вашу пошту' className='input__email' />
-                            <ErrorMessage name="email" component="div" />
+                            <ErrorMessage name="email" component="div" className='error__masage' />
                             <Field type="password" name="password" placeholder='Введіть ваш пароль' className='input__password' />
                             <ErrorMessage name="password" component="div" />
                             <button type="submit" className='button__submit' disabled={isSubmitting}>
@@ -62,4 +62,4 @@ function Login() {
     );
 }
 
-export default React.memo(Login)
+export default React.memo(Login);
