@@ -1,10 +1,12 @@
 import { createSlice, configureStore, createAsyncThunk } from "@reduxjs/toolkit";
-const key = '167d57c9ec214838861c8a6de1d14489';
+import namesOfCyrrebcies from '../../data/namesOfCyrrebcies.json';
+
+
 const keyAnotherBase = "cur_live_3mrGIVgKkMheiPzzCT72r3nsjOyWtpWyVfZ22ekH";
 
 
 export const fetchActualCourse = createAsyncThunk('actualCourse/fetchCourse', async () => {
-    const response = await fetch(`https://openexchangerates.org/api/latest.json?app_id=${key}`);
+    const response = await fetch(`https://api.currencyapi.com/v3/latest?apikey=${keyAnotherBase}&currencies=&base_currency=USD`);
     console.log("API")
     const data = await response.json();
     return data;
@@ -26,6 +28,7 @@ const userInfo = createSlice({
         actualCourseAnoterBase: {
 
         },
+        namesOfCyrrebcies: namesOfCyrrebcies,
         valueForSail: "USD",
         valueForBuy: "EUR",
     },
@@ -42,6 +45,7 @@ const userInfo = createSlice({
         },
         actualRatesAnotherBase: {
             reducer: (state, action) => {
+                console.log(action.payload)
                 state.actualCourseAnoterBase = action.payload
             },
         },

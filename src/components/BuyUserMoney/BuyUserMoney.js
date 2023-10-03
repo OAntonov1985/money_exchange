@@ -1,11 +1,13 @@
 import '../ModalWindow/modal.css'
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import ModalWindow from '../ModalWindow/ModalWindow';
 
 
 function BuyUserMoney(props) {
     const { userAuthorized, finalBalanseRow2, setFinalBalanseRow2, buyUserMoney, displaySing, input2, input1, actualCourse, setFinalBalanse, sratrBalanseInWallet, sellUserMoney, setDisplaySing, setStartBalanseInWallet, setStartBalanseInWalletRow2, sratrBalanseInWalletRow2, setBuyUserMoney, clearFunction, setAmountOfCurrencyRow2, setAmountOfCurrencyRow1 } = props.buyObj;
 
+    const userMoney = useSelector((state) => state.userMoney);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -32,11 +34,11 @@ function BuyUserMoney(props) {
 
     function changeMoneyInVallet2(event) {
 
-        for (let key in userAuthorized[0].money) {
+        for (let key in userMoney) {
             if (key === event.target.value) {
                 setBuyUserMoney(key)
                 setFinalBalanse(0)
-                setStartBalanseInWalletRow2(userAuthorized[0].money[key]);
+                setStartBalanseInWalletRow2(userMoney[key]);
             }
         }
     }
@@ -54,7 +56,7 @@ function BuyUserMoney(props) {
                         <div value={buyUserMoney} onChange={changeMoneyInVallet2} onClick={findAnotherСurrency}> {buyUserMoney}
                         </div>
                     </div>
-                    {/* <ModalWindow obj={obj} /> */}
+                    <ModalWindow obj={obj} />
                     <div className="balanse">Баланс Вашого рахунку: <br />
                         {finalBalanseRow2 === 0 ? sratrBalanseInWalletRow2 : finalBalanseRow2}  {buyUserMoney}
                     </div>

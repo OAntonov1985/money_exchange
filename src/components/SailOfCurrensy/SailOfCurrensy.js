@@ -1,25 +1,38 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { addValueForSail } from "../App/store2";
 import Row1Left from '../Row1/Row1Left';
 import useRatesAnotherbase from '../HelperFunctions/useRatesAnotherbase ';
 
-function SailOfCurrensy(props) {
-    const { finalBalanse, setAmountCorrency, sellUserMoney, displaySing, input1, setSellUserMoney, input2, sratrBalanseInWallet, setStartBalanseInWallet, setFinalBalanse, setFinalBalanseRow2, buyUserMoney, setStartBalanseInWalletRow2, setDisplaySing, setAmountOfCurrencyRow1 } = props.sellObj;
 
-    const [nameOfValues, setNameOfValues] = useState([]);
+function SailOfCurrensy(props) {
+    const { finalBalanse, setAmountCorrency, sellUserMoney, displaySing, input1, setSellUserMoney, input2, setFinalBalanse, setFinalBalanseRow2, buyUserMoney, setStartBalanseInWalletRow2, setDisplaySing, setAmountOfCurrencyRow1 } = props.sellObj;
 
     const userMoney = useSelector((state) => state.userMoney);
-
     const { fetchRates } = useRatesAnotherbase();
 
+    const [nameOfValues, setNameOfValues] = useState([]);
+    const [sratrBalanseInWallet, setStartBalanseInWallet] = useState(userMoney.USD)
+    // console.log(userMoney.USD)
+
+    const dispatch = useDispatch();
+
+
+
+
+
     function selectMoneyInVallet(event) {
-        setFinalBalanse(0);
-        setFinalBalanseRow2(0);
-        setDisplaySing('none')
+        // setFinalBalanse(0);
+        // setFinalBalanseRow2(0);
+        setDisplaySing('none');
+
+
         for (let key in userMoney) {
             if (key === event.target.value) {
+                setSellUserMoney(event.target.value)
                 setStartBalanseInWallet(userMoney[key])
+                console.log(key)
                 setSellUserMoney(key);
                 input1.current.value = '';
                 input2.current.value = '';
@@ -29,8 +42,7 @@ function SailOfCurrensy(props) {
 
         for (let key in userMoney) {
             if (key === buyUserMoney) {
-                setStartBalanseInWalletRow2(userMoney[key])
-
+                setStartBalanseInWalletRow2(userMoney[key]);
             }
         }
     }
