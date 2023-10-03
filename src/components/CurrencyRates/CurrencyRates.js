@@ -26,7 +26,7 @@ function CurrencyRates(props) {
                 }
             }
         }
-    }, [actualRates, rates])
+    }, [buyUserMoney, sellUserMoney, rates])
 
     return (
         <>

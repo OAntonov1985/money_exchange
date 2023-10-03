@@ -1,52 +1,38 @@
 import './modal.css';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import axios from 'axios';
+// import axios from 'axios';
 
 import Modal from 'react-modal';
 const appRoot = document.getElementById('root');
 Modal.setAppElement(appRoot);
 
 function ModalWindow(props) {
-    const { isModalOpen, setIsModalOpen, setBuyUserMoney, setStartBalanseInWalletRow2, userAuthorized, setFinalBalanseRow2, setStartBalanseInWallet, setFinalBalanse, sellUserMoney, setDisplaySing, input2, input1, } = props.obj
+    const { isModalOpen, setIsModalOpen, setBuyUserMoney, setStartBalanseInWalletRow2, setFinalBalanseRow2, setFinalBalanse, sellUserMoney, setDisplaySing, input2, input1, } = props.obj
 
-
-
-    const actualRates = useSelector((state) => state.actualCourse.rates);
-    const rates = useSelector((state) => state.actualCourseAnoterBase);
     const namesOfCyrrebcies = useSelector((state) => state.namesOfCyrrebcies);
     const userMoney = useSelector((state) => state.userMoney);
-    console.log(actualRates)
 
     const [initialValueOfArray, setInitialValueOfArray] = useState(Object.entries(namesOfCyrrebcies));
     const [selectedCurrency, setSelectedCurrency] = useState('');
 
 
-    // useEffect(() => {
-    //     axios.get('https://openexchangerates.org/api/currencies.json')
-    //         .then((response) => {
-    //             const entries = Object.entries(response.data);
-    //             setInitialValueOfArray(entries);
-    //         })
-    //         .catch((error) => {
-    //             alert('Помилка при запиті на сервер:', error);
-    //         });
-    // }, [isModalOpen]);
-    // console.log(initialValueOfArray)
 
 
     function handleSearchChange(event) {
         setSelectedCurrency(event.target.value);
-        const filteredResults = Object.entries(namesOfCyrrebcies).filter(([abbreviation]) =>
-            abbreviation.toLowerCase().includes(selectedCurrency.toLowerCase())
+
+        const results = Object.entries(namesOfCyrrebcies).filter(([key, value]) =>
+            key.toLowerCase().includes(selectedCurrency.toLowerCase()) ||
+            value.toLowerCase().includes(selectedCurrency.toLowerCase())
         );
-        console.log(filteredResults)
-        setInitialValueOfArray(filteredResults);
+        setInitialValueOfArray(results);
     };
 
 
     function catchNameOfСurrency(abbreviation) {
         setBuyUserMoney(abbreviation);
+        setInitialValueOfArray(Object.entries(namesOfCyrrebcies))
         setIsModalOpen(false);
         setDisplaySing('none');
         setSelectedCurrency('');
@@ -64,7 +50,7 @@ function ModalWindow(props) {
                 setFinalBalanse(0);
                 for (let key in userMoney) {
                     if (key === sellUserMoney) {
-                        console.log(userMoney[key])
+
                         // setStartBalanseInWallet(userMoney[key])
                     }
                 }

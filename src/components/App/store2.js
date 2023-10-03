@@ -46,7 +46,6 @@ const userInfo = createSlice({
         actualRatesAnotherBase: {
             reducer: (state, action) => {
                 console.log(action.payload)
-                state.actualCourseAnoterBase = action.payload
             },
         },
         addValueForSail: {

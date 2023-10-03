@@ -33,7 +33,7 @@ function SailOfCurrensy(props) {
                 setSellUserMoney(event.target.value)
                 setStartBalanseInWallet(userMoney[key])
                 console.log(key)
-                setSellUserMoney(key);
+                // setSellUserMoney(key);
                 input1.current.value = '';
                 input2.current.value = '';
                 fetchRates(key);
