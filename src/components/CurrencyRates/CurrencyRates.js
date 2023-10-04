@@ -4,8 +4,7 @@ import { useEffect, useState } from 'react';
 
 
 function CurrencyRates(props) {
-    const { sellUserMoney, buyUserMoney } = props.course;
-    const [actualCourse, setActualCourse] = useState(0);
+    const { sellUserMoney, buyUserMoney, actualCourse, setActualCourse } = props.course;
 
     const actualRates = useSelector((state) => state.actualCourse.data);
     const rates = useSelector((state) => state.actualCourseAnoterBase);

@@ -25,9 +25,9 @@ function Main(props) {
     const [sellUserMoney, setSellUserMoney] = useState('USD');  // назва валюти яку продаємо
     const [buyUserMoney, setBuyUserMoney] = useState('EUR'); // назва валюти яку купляємо
 
-
     const [sratrBalanseInWalletRow2, setStartBalanseInWalletRow2] = useState(userMoney.EUR)
     // стартовий баланс валют в гаманці
+    const [inputNumberRow1, setInputNumberRow1] = useState(0);
 
 
 
@@ -55,11 +55,11 @@ function Main(props) {
     const input2 = React.createRef(null)
 
 
-    const sellObj = { finalBalanse, userAuthorized, setFinalBalanse, setAmountCorrency, sellUserMoney, displaySing, input1, setSellUserMoney, input2, setFinalBalanseRow2, buyUserMoney, setStartBalanseInWalletRow2, setDisplaySing };
+    const sellObj = { displaySing, input1, setSellUserMoney, buyUserMoney, setStartBalanseInWalletRow2, setDisplaySing, inputNumberRow1, setInputNumberRow1, finalBalanse, setFinalBalanse, sellUserMoney, setStartBalanseInWalletRow2, sratrBalanseInWalletRow2, actualCourse };
 
-    const course = { sellUserMoney, buyUserMoney };
+    const course = { sellUserMoney, buyUserMoney, actualCourse, setActualCourse };
 
-    const buyObj = { userAuthorized, finalBalanseRow2, setFinalBalanseRow2, buyUserMoney, displaySing, input2, input1, actualCourse, setFinalBalanse, finalBalanse, setDisplaySing, sellUserMoney, setStartBalanseInWalletRow2, sratrBalanseInWalletRow2, setBuyUserMoney, setAmountCorrency, clearFunction, setAmountOfCurrencyRow2, setAmountOfCurrencyRow1 };
+    const buyObj = { userAuthorized, finalBalanseRow2, setFinalBalanseRow2, buyUserMoney, displaySing, input2, input1, actualCourse, setFinalBalanse, finalBalanse, setDisplaySing, sellUserMoney, setStartBalanseInWalletRow2, sratrBalanseInWalletRow2, setBuyUserMoney, setAmountCorrency, clearFunction, setAmountOfCurrencyRow2, setAmountOfCurrencyRow1, inputNumberRow1 };
 
     const modalFinal = { modalMakeDeal, amountOfCurrencyRow1, amountOfCurrencyRow2, sellUserMoney, buyUserMoney, buttonFinalDeal }
 

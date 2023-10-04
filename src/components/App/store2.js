@@ -31,6 +31,7 @@ const userInfo = createSlice({
         namesOfCyrrebcies: namesOfCyrrebcies,
         valueForSail: "USD",
         valueForBuy: "EUR",
+        // valuerInput1: 0,
     },
     reducers: {
         addUser: {
@@ -43,17 +44,23 @@ const userInfo = createSlice({
                 state.userMoney = action.payload[0].money
             },
         },
-        actualRatesAnotherBase: {
-            reducer: (state, action) => {
-                console.log(action.payload)
-            },
-        },
+        // actualRatesAnotherBase: {
+        //     reducer: (state, action) => {
+        //         console.log(action.payload)
+        //     },
+        // },
         addValueForSail: {
             reducer: (state, action) => {
                 console.log(action.payload)
                 state.actualCourseAnoterBase = action.payload
             },
-        }
+        },
+        // actualValueRow1: {
+        //     reducer: (state, action) => {
+        //         console.log(action.payload)
+        //         state.actualValueRow1 = action.payload
+        //     },
+        // }
     },
     extraReducers: (builder) => {
         builder.addCase(fetchActualCourse.fulfilled, (state, action) => {
@@ -62,7 +69,7 @@ const userInfo = createSlice({
     },
 });
 
-export const { addUser, addUserMoney, actualRatesAnotherBase, addValueForSail } = userInfo.actions;
+export const { addUser, addUserMoney, actualRatesAnotherBase, addValueForSail, actualValueRow1 } = userInfo.actions;
 
 export const store = configureStore({
     reducer: userInfo.reducer,
@@ -70,4 +77,8 @@ export const store = configureStore({
 
 });
 store.dispatch(fetchActualCourse());
+// setInterval(() => {
+//     store.dispatch(fetchActualCourse());
+// }, 10000);
+
 

@@ -1,14 +1,13 @@
 import './modal.css';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-// import axios from 'axios';
 
 import Modal from 'react-modal';
 const appRoot = document.getElementById('root');
 Modal.setAppElement(appRoot);
 
 function ModalWindow(props) {
-    const { isModalOpen, setIsModalOpen, setBuyUserMoney, setStartBalanseInWalletRow2, setFinalBalanseRow2, setFinalBalanse, sellUserMoney, setDisplaySing, input2, input1, } = props.obj
+    const { isModalOpen, setIsModalOpen, setBuyUserMoney, setStartBalanseInWalletRow2, setFinalBalanseRow2, setFinalBalanse, sellUserMoney, setDisplaySing, input2, input1 } = props.obj
 
     const namesOfCyrrebcies = useSelector((state) => state.namesOfCyrrebcies);
     const userMoney = useSelector((state) => state.userMoney);

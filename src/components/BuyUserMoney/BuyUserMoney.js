@@ -1,36 +1,19 @@
 import '../ModalWindow/modal.css'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import ModalWindow from '../ModalWindow/ModalWindow';
 
 
 function BuyUserMoney(props) {
-    const { userAuthorized, finalBalanseRow2, setFinalBalanseRow2, buyUserMoney, displaySing, input2, input1, actualCourse, setFinalBalanse, sratrBalanseInWallet, sellUserMoney, setDisplaySing, setStartBalanseInWallet, setStartBalanseInWalletRow2, sratrBalanseInWalletRow2, setBuyUserMoney, clearFunction, setAmountOfCurrencyRow2, setAmountOfCurrencyRow1 } = props.buyObj;
+    const { userAuthorized, setFinalBalanseRow2, buyUserMoney, displaySing, input2, input1, actualCourse, setFinalBalanse, sellUserMoney, setDisplaySing, setStartBalanseInWallet, setStartBalanseInWalletRow2, sratrBalanseInWalletRow2, setBuyUserMoney, setAmountOfCurrencyRow2, inputNumberRow1 } = props.buyObj;
 
     const userMoney = useSelector((state) => state.userMoney);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const obj = { isModalOpen, setIsModalOpen, setBuyUserMoney, setStartBalanseInWalletRow2, userAuthorized, setFinalBalanseRow2, setFinalBalanse, setStartBalanseInWallet, sellUserMoney, setDisplaySing, input2, input1, setAmountOfCurrencyRow2 }
+    const obj = { isModalOpen, setIsModalOpen, setBuyUserMoney, setStartBalanseInWalletRow2, setFinalBalanseRow2, setFinalBalanse, sellUserMoney, setDisplaySing, input2, input1 }
 
 
-    function changeValue() {
-        setAmountOfCurrencyRow1(parseFloat((+input1.current.value).toFixed(2)));
-        setAmountOfCurrencyRow2(parseFloat((+input2.current.value * 10).toFixed(2)));
-
-        if ((sratrBalanseInWallet - (+input2.current.value)) >= 0) {
-            let res = (+input2.current.value) / actualCourse;
-            input1.current.value = parseFloat(res.toFixed(2));
-            setFinalBalanse(parseFloat((sratrBalanseInWallet - res).toFixed(2)))
-            setFinalBalanseRow2(parseFloat((sratrBalanseInWalletRow2 + res * actualCourse).toFixed(2)))
-
-        }
-        // якщо недостатньо коштів повертаємо початковий балан рахунків
-        else if ((sratrBalanseInWallet - (+input2.current.value)) < 0) {
-            alert('Недостатньо коштів на рахунку');
-            clearFunction()
-        }
-    }
 
     function changeMoneyInVallet2(event) {
 
@@ -41,12 +24,12 @@ function BuyUserMoney(props) {
                 setStartBalanseInWalletRow2(userMoney[key]);
             }
         }
-    }
+    };
+
 
     function findAnotherСurrency() {
         setIsModalOpen(true);
     }
-
 
     return (
         <>
@@ -58,14 +41,14 @@ function BuyUserMoney(props) {
                     </div>
                     <ModalWindow obj={obj} />
                     <div className="balanse">Баланс Вашого рахунку: <br />
-                        {finalBalanseRow2 === 0 ? sratrBalanseInWalletRow2 : finalBalanseRow2}  {buyUserMoney}
+                        {sratrBalanseInWalletRow2 + (actualCourse * inputNumberRow1)}
+                        {buyUserMoney}
                     </div>
                 </div>
                 <div className="right__sell__money">
                     <div className='row__plus' style={{ display: displaySing }}>+</div>
                     <input type="number" className='input__sell'
                         placeholder="0"
-                        onChange={changeValue}
                         ref={input2} />
                 </div>
             </div>

@@ -1,41 +1,27 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { addValueForSail } from "../App/store2";
-import Row1Left from '../Row1/Row1Left';
+import { useSelector } from 'react-redux';
 import useRatesAnotherbase from '../HelperFunctions/useRatesAnotherbase ';
 
 
+
 function SailOfCurrensy(props) {
-    const { finalBalanse, setAmountCorrency, sellUserMoney, displaySing, input1, setSellUserMoney, input2, setFinalBalanse, setFinalBalanseRow2, buyUserMoney, setStartBalanseInWalletRow2, setDisplaySing, setAmountOfCurrencyRow1 } = props.sellObj;
+    const { displaySing, input1, setSellUserMoney, buyUserMoney, setStartBalanseInWalletRow2, setDisplaySing, inputNumberRow1, setInputNumberRow1, sellUserMoney, setFinalBalanse, sratrBalanseInWalletRow2, actualCourse } = props.sellObj;
 
     const userMoney = useSelector((state) => state.userMoney);
     const { fetchRates } = useRatesAnotherbase();
 
+
     const [nameOfValues, setNameOfValues] = useState([]);
-    const [sratrBalanseInWallet, setStartBalanseInWallet] = useState(userMoney.USD)
-    // console.log(userMoney.USD)
-
-    const dispatch = useDispatch();
-
-
-
-
+    const [sratrBalanseInWallet, setStartBalanseInWallet] = useState(userMoney.USD);
 
     function selectMoneyInVallet(event) {
-        // setFinalBalanse(0);
-        // setFinalBalanseRow2(0);
         setDisplaySing('none');
-
 
         for (let key in userMoney) {
             if (key === event.target.value) {
                 setSellUserMoney(event.target.value)
                 setStartBalanseInWallet(userMoney[key])
-                console.log(key)
-                // setSellUserMoney(key);
-                input1.current.value = '';
-                input2.current.value = '';
                 fetchRates(key);
             }
         }
@@ -53,9 +39,26 @@ function SailOfCurrensy(props) {
             setNameOfValues(Object.keys(userMoney));
         }
 
-    }, [Object.keys(userMoney).length])
+        if (input1.current.value.length === 0) {
+            setDisplaySing('none');
+        }
+
+    }, [Object.keys(userMoney).length, input1]);
 
 
+    function event(event) {
+        if ((sratrBalanseInWallet - (+event.target.value)) >= 0) {
+            setDisplaySing('block');
+            setInputNumberRow1(+event.target.value);
+        }
+        else {
+            alert("Помилка! Недостатньо коштів на рахунку");
+            setInputNumberRow1(0);
+            setDisplaySing('none');
+            input1.current.value = '';
+            setFinalBalanse(0)
+        }
+    };
 
     return (
         <>
@@ -71,7 +74,8 @@ function SailOfCurrensy(props) {
                         </select>
                     </div>
                     <div className="balanse">Баланс Вашого рахунку: <br />
-                        {finalBalanse === 0 ? sratrBalanseInWallet : finalBalanse}  {sellUserMoney}
+                        {parseFloat((sratrBalanseInWallet - inputNumberRow1).toFixed(2))}
+                        {sellUserMoney}
                     </div>
                 </div>
                 <div className="right__sell__money">
@@ -79,7 +83,9 @@ function SailOfCurrensy(props) {
                         style={{ display: displaySing }}>-</div>
                     <input type="number" className='input__sell'
                         placeholder="0"
-                        onChange={setAmountCorrency} ref={input1} />
+                        onChange={event}
+                        ref={input1}
+                    />
                 </div>
             </div>
         </>
