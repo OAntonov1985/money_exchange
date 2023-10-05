@@ -55,7 +55,7 @@ function Main(props) {
     const input2 = React.createRef(null)
 
 
-    const sellObj = { displaySing, input1, setSellUserMoney, buyUserMoney, setStartBalanseInWalletRow2, setDisplaySing, inputNumberRow1, setInputNumberRow1, finalBalanse, setFinalBalanse, sellUserMoney, setStartBalanseInWalletRow2, sratrBalanseInWalletRow2, actualCourse };
+    const sellObj = { displaySing, input1, setSellUserMoney, buyUserMoney, setStartBalanseInWalletRow2, setDisplaySing, inputNumberRow1, setInputNumberRow1, finalBalanse, setFinalBalanse, sellUserMoney, setStartBalanseInWalletRow2, sratrBalanseInWalletRow2, actualCourse, input2, setButtonClassname, buttonClassname };
 
     const course = { sellUserMoney, buyUserMoney, actualCourse, setActualCourse };
 

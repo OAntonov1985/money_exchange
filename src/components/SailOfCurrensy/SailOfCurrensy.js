@@ -6,7 +6,7 @@ import useRatesAnotherbase from '../HelperFunctions/useRatesAnotherbase ';
 
 
 function SailOfCurrensy(props) {
-    const { displaySing, input1, setSellUserMoney, buyUserMoney, setStartBalanseInWalletRow2, setDisplaySing, inputNumberRow1, setInputNumberRow1, sellUserMoney, setFinalBalanse, sratrBalanseInWalletRow2, actualCourse } = props.sellObj;
+    const { displaySing, input1, setSellUserMoney, buyUserMoney, setStartBalanseInWalletRow2, setDisplaySing, inputNumberRow1, setInputNumberRow1, sellUserMoney, setFinalBalanse, setButtonClassname, buttonClassname, actualCourse, input2 } = props.sellObj;
 
     const userMoney = useSelector((state) => state.userMoney);
     const { fetchRates } = useRatesAnotherbase();
@@ -41,22 +41,27 @@ function SailOfCurrensy(props) {
 
         if (input1.current.value.length === 0) {
             setDisplaySing('none');
+            setButtonClassname('btn_inactive');
         }
 
     }, [Object.keys(userMoney).length, input1]);
 
 
-    function event(event) {
+    function handleChange(event) {
         if ((sratrBalanseInWallet - (+event.target.value)) >= 0) {
             setDisplaySing('block');
             setInputNumberRow1(+event.target.value);
+            setButtonClassname('button__submit btn__main');
+            input2.current.value = +event.target.value * actualCourse;
         }
         else {
             alert("Помилка! Недостатньо коштів на рахунку");
             setInputNumberRow1(0);
             setDisplaySing('none');
             input1.current.value = '';
-            setFinalBalanse(0)
+            input2.current.value = '';
+            setFinalBalanse(0);
+            setButtonClassname('btn_inactive');
         }
     };
 
@@ -74,8 +79,7 @@ function SailOfCurrensy(props) {
                         </select>
                     </div>
                     <div className="balanse">Баланс Вашого рахунку: <br />
-                        {parseFloat((sratrBalanseInWallet - inputNumberRow1).toFixed(2))}
-                        {sellUserMoney}
+                        {parseFloat((sratrBalanseInWallet - inputNumberRow1).toFixed(2))}                          {sellUserMoney}
                     </div>
                 </div>
                 <div className="right__sell__money">
@@ -83,7 +87,7 @@ function SailOfCurrensy(props) {
                         style={{ display: displaySing }}>-</div>
                     <input type="number" className='input__sell'
                         placeholder="0"
-                        onChange={event}
+                        onChange={handleChange}
                         ref={input1}
                     />
                 </div>
