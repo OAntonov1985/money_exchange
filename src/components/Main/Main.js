@@ -18,9 +18,8 @@ function Main(props) {
     const userInfo = useSelector((state) => state.userInfo);
     const userMoney = useSelector((state) => state.userMoney);
     // console.log(userMoney)
-
     const lengthArr = Object.keys(userInfo).length
-    const { userAuthorized } = props;
+
 
     const [sellUserMoney, setSellUserMoney] = useState('USD');  // назва валюти яку продаємо
     const [buyUserMoney, setBuyUserMoney] = useState('EUR'); // назва валюти яку купляємо
@@ -56,38 +55,38 @@ function Main(props) {
     const input2 = React.createRef(null)
 
 
-    const sellObj = { displaySing, input1, setSellUserMoney, buyUserMoney, setStartBalanseInWalletRow2, setDisplaySing, inputNumberRow1, setInputNumberRow1, finalBalanse, setFinalBalanse, sellUserMoney, setStartBalanseInWalletRow2, sratrBalanseInWalletRow2, actualCourse, input2, setButtonClassname, buttonClassname };
+    const sellObj = { displaySing };
 
 
-    const buyObj = { userAuthorized, finalBalanseRow2, setFinalBalanseRow2, buyUserMoney, displaySing, input2, input1, actualCourse, setFinalBalanse, finalBalanse, setDisplaySing, sellUserMoney, setStartBalanseInWalletRow2, sratrBalanseInWalletRow2, setBuyUserMoney, setAmountCorrency, clearFunction, setAmountOfCurrencyRow2, setAmountOfCurrencyRow1, inputNumberRow1 };
+    const buyObj = { finalBalanseRow2, setFinalBalanseRow2, buyUserMoney, displaySing, input2, input1, actualCourse, setFinalBalanse, finalBalanse, setDisplaySing, sellUserMoney, setStartBalanseInWalletRow2, sratrBalanseInWalletRow2, setBuyUserMoney, setAmountCorrency, setAmountOfCurrencyRow2, setAmountOfCurrencyRow1, inputNumberRow1 };
 
-    const modalFinal = { modalMakeDeal, amountOfCurrencyRow1, amountOfCurrencyRow2, sellUserMoney, buyUserMoney, buttonFinalDeal }
+    const modalFinal = { modalMakeDeal, amountOfCurrencyRow1, amountOfCurrencyRow2, sellUserMoney, buyUserMoney }
 
-    function clearFunction() {
-        input1.current.value = '';
-        input2.current.value = '';
-        setDisplaySing('none');
-        setFinalBalanse(0);
-        setFinalBalanseRow2(0);
-        setAmountOfCurrencyRow1(0);
-        setAmountOfCurrencyRow2(0);
+    // function clearFunction() {
+    //     input1.current.value = '';
+    //     input2.current.value = '';
+    //     setDisplaySing('none');
+    //     setFinalBalanse(0);
+    //     setFinalBalanseRow2(0);
+    //     setAmountOfCurrencyRow1(0);
+    //     setAmountOfCurrencyRow2(0);
 
-        // for (let key in userMoney) {
-        //     if (key === sellUserMoney) {
-        //         setStartBalanseInWallet(userMoney[key])
-        //     }
-        // }
+    //     // for (let key in userMoney) {
+    //     //     if (key === sellUserMoney) {
+    //     //         setStartBalanseInWallet(userMoney[key])
+    //     //     }
+    //     // }
 
-        for (let key in userMoney.money) {
-            if (key === buyUserMoney) {
-                setStartBalanseInWalletRow2(userMoney[key]);
-                break
-            }
-            else if (key !== buyUserMoney) {
-                setStartBalanseInWalletRow2(0);
-            }
-        }
-    }
+    //     for (let key in userMoney.money) {
+    //         if (key === buyUserMoney) {
+    //             setStartBalanseInWalletRow2(userMoney[key]);
+    //             break
+    //         }
+    //         else if (key !== buyUserMoney) {
+    //             setStartBalanseInWalletRow2(0);
+    //         }
+    //     }
+    // }
 
 
     function setAmountCorrency(event) {
@@ -120,12 +119,12 @@ function Main(props) {
         setmodalmakeDeal(true);
     }
 
-    function buttonFinalDeal() {
-        console.log(999)
-        setmodalmakeDeal(false);
-        clearFunction()
+    // function buttonFinalDeal() {
+    //     console.log(999)
+    //     setmodalmakeDeal(false);
+    //     // clearFunction()
 
-    }
+    // }
 
     return (
         <>  {lengthArr !== 0 ?

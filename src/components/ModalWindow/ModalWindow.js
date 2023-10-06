@@ -1,16 +1,17 @@
 import './modal.css';
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { actualValueForBuyRow2, actualCourseAfterChangeValue, actualCourseAnoterBase, valueForSail } from '../App/store2'
+import { actualValueForBuyRow2, actualCourseAfterChangeValue, actualCourseAnoterBase, setStartBalanseRow2 } from '../App/store2';
+import namesOfCyrrebcies from '../../data/namesOfCyrrebcies.json'
 
 import Modal from 'react-modal';
 const appRoot = document.getElementById('root');
 Modal.setAppElement(appRoot);
 
 function ModalWindow(props) {
-    const { isModalOpen, setIsModalOpen, setBuyUserMoney, setStartBalanseInWalletRow2, setFinalBalanseRow2, setFinalBalanse, sellUserMoney, setDisplaySing, input2, input1 } = props.obj
+    const { isModalOpen, setIsModalOpen } = props.obj
 
-    const namesOfCyrrebcies = useSelector((state) => state.namesOfCyrrebcies);
+    // const namesOfCyrrebcies = useSelector((state) => state.namesOfCyrrebcies);
     const userMoney = useSelector((state) => state.userMoney);
     const valueForBuy = useSelector((state) => state.valueForBuy);
 
@@ -20,7 +21,6 @@ function ModalWindow(props) {
 
     const dispatch = useDispatch();
     const actualCourseAnoterBase = useSelector((state) => state.actualCourseAnoterBase);
-    const valueForSail = useSelector((state) => state.valueForSail);
 
     // фільтр
     function handleSearchChange(event) {
@@ -36,45 +36,22 @@ function ModalWindow(props) {
     // зміна валюти
     function catchNameOfСurrency(abbreviation) {
         dispatch(actualValueForBuyRow2(abbreviation));
-
         if (Object.keys(actualCourseAnoterBase).length !== 0) {
 
             for (let key in actualCourseAnoterBase.data) {
-
                 if (key === valueForBuy) {
-                    console.log(actualCourseAnoterBase.data[key])
-                    dispatch(actualCourseAfterChangeValue(parseFloat((actualCourseAnoterBase.data[key].value).toFixed(2))))
+                    dispatch(actualCourseAfterChangeValue(parseFloat((actualCourseAnoterBase.data[key].value).toFixed(2))));
                 }
             }
         }
-
-
-
-        setBuyUserMoney(abbreviation);
-        setInitialValueOfArray(Object.entries(namesOfCyrrebcies))
+        if (userMoney[abbreviation] === undefined) {
+            dispatch(setStartBalanseRow2(0))
+        }
+        else {
+            dispatch(setStartBalanseRow2(userMoney[abbreviation]))
+        }
         setIsModalOpen(false);
-        setDisplaySing('none');
-        setSelectedCurrency('');
-        input1.current.value = '';
-        input2.current.value = '';
-
-        for (let key in userMoney) {
-            if (key === abbreviation) {
-                setStartBalanseInWalletRow2(userMoney[key]);
-                break
-            }
-            else {
-                setFinalBalanseRow2(0);
-                setStartBalanseInWalletRow2(0);
-                setFinalBalanse(0);
-                for (let key in userMoney) {
-                    if (key === sellUserMoney) {
-
-                        // setStartBalanseInWallet(userMoney[key])
-                    }
-                }
-            }
-        }
+        setInitialValueOfArray(Object.entries(namesOfCyrrebcies))
     }
 
     return (

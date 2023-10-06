@@ -8,6 +8,10 @@ function BuyUserMoney(props) {
     const { setFinalBalanseRow2, buyUserMoney, displaySing, input2, input1, actualCourse, setFinalBalanse, sellUserMoney, setDisplaySing, setStartBalanseInWallet, setStartBalanseInWalletRow2, sratrBalanseInWalletRow2, setBuyUserMoney, setAmountOfCurrencyRow2, inputNumberRow1, setButtonClassname } = props.buyObj;
 
     const userMoney = useSelector((state) => state.userMoney);
+    const valueForSail = useSelector((state) => state.valueForSail);
+    const valueForBuy = useSelector((state) => state.valueForBuy);
+    const startBalanseRow2 = useSelector((state) => state.startBalanseRow2);
+    const startActualCourse = useSelector((state) => state.startActualCourse);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -57,21 +61,21 @@ function BuyUserMoney(props) {
             <div className="sellMoney">
                 <div className="left__sell__money">
                     <div className="maney__value">
-                        <div value={buyUserMoney} onChange={changeMoneyInVallet2} onClick={findAnotherСurrency}> {buyUserMoney}
+                        <div value={valueForBuy} onChange={changeMoneyInVallet2} onClick={findAnotherСurrency}> {valueForBuy}
                         </div>
                     </div>
                     <ModalWindow obj={obj} />
                     <div className="balanse">Баланс Вашого рахунку: <br />
-                        {/* {sratrBalanseInWalletRow2 + (actualCourse * inputNumberRow1)}                         {buyUserMoney} */}
-                        {parseFloat((sratrBalanseInWalletRow2 + (actualCourse * inputNumberRow1)).toFixed(2))}                          {buyUserMoney}
+                        {parseFloat((startBalanseRow2 + (startActualCourse * 0)).toFixed(2))}                          {valueForBuy}
                     </div>
                 </div>
                 <div className="right__sell__money">
                     <div className='row__plus' style={{ display: displaySing }}>+</div>
                     <input type="number" className='input__sell'
                         placeholder="0"
-                        ref={input2}
-                        onChange={handleChange} />
+                    // ref={input2}
+                    // onChange={handleChange}
+                    />
                 </div>
             </div>
         </>

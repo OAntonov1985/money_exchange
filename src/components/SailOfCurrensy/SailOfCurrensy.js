@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { actualValueForSailRow1, actualCourseAnoterBase, valueForSail, valueForBuy, startActualCourse, actualCourseAfterChangeValue, setStartBalanseRow1 } from '../App/store2';
+import { actualValueForSailRow1, valueForSail, valueForBuy, startActualCourse, actualCourseAfterChangeValue, setStartBalanseRow1 } from '../App/store2';
 import useRatesAnotherbase from '../HelperFunctions/useRatesAnotherbase ';
 
 
@@ -13,7 +13,7 @@ function SailOfCurrensy(props) {
 
     const userMoney = useSelector((state) => state.userMoney);
     const valueForSail = useSelector((state) => state.valueForSail);
-    const actualCourseAnoterBase = useSelector((state) => state.actualCourseAnoterBase);
+    // const actualCourseAnoterBase = useSelector((state) => state.actualCourseAnoterBase);
     const valueForBuy = useSelector((state) => state.valueForBuy);
     const startBalanseRow1 = useSelector((state) => state.startBalanseRow1);
     const { fetchRates } = useRatesAnotherbase();
@@ -35,9 +35,6 @@ function SailOfCurrensy(props) {
             dispatch(setStartBalanseRow1(userMoney[event.target.value]))
         }
     }
-
-
-
 
     useEffect(() => {
         if (Object.keys(userMoney).length !== undefined) {

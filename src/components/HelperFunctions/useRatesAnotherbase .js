@@ -10,7 +10,6 @@ function useRatesAnotherbase() {
 
     async function fetchRates(value) {
         try {
-            console.log(value)
             const response = await fetch(`https://api.currencyapi.com/v3/latest?apikey=${key}&currencies=&base_currency=${value}`);
             console.log("API_Base");
             const data = await response.json();
