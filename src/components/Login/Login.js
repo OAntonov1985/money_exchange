@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom';
-import { addUser, addUserMoney } from '../App/store2';
+import { addUser, addUserMoney, setStartBalanseRow1, setStartBalanseRow2 } from '../App/store2';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 
 import './login.css';
@@ -35,6 +35,9 @@ function Login() {
                         const result = data.users.filter(user => (user.email === values.email && user.password === values.password));
                         if (result.length !== 0) {
                             dispatch(addUser(result));
+                            dispatch(addUserMoney(result));
+                            dispatch(setStartBalanseRow1(result[0].money.USD));
+                            dispatch(setStartBalanseRow2(result[0].money.EUR));
                             dispatch(addUserMoney(result));
                             navigate('/main');
                             setSubmitting(false);

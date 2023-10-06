@@ -1,36 +1,20 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 
 function CurrencyRates(props) {
-    const { sellUserMoney, buyUserMoney, actualCourse, setActualCourse } = props.course;
-
-    const actualRates = useSelector((state) => state.actualCourse.data);
     const rates = useSelector((state) => state.actualCourseAnoterBase);
+    const valueForSail = useSelector((state) => state.valueForSail);
+    const valueForBuy = useSelector((state) => state.valueForBuy);
+    const startActualCourse = useSelector((state) => state.startActualCourse);
 
-    useEffect(() => {
-
-        if (Object.keys(rates).length === 0) {
-            for (let key in actualRates) {
-                if (key === buyUserMoney) {
-                    setActualCourse(parseFloat(actualRates[key].value.toFixed(2)));
-                }
-            }
-        }
-        else {
-            for (let key in actualRates) {
-                if (key === buyUserMoney) {
-                    setActualCourse(parseFloat(rates[key].value.toFixed(2)));
-                }
-            }
-        }
-    }, [buyUserMoney, sellUserMoney, rates])
 
     return (
         <>
-            {!actualRates ? 'Loading' :
-                <div className='actualCourse'>Актуальний курс: 1 {sellUserMoney} = {actualCourse} {buyUserMoney}
+            {!rates ? 'Loading' :
+                <div className='actualCourse'>Актуальний курс: 1 {valueForSail} =
+                    {startActualCourse} {valueForBuy}
                 </div>
             }
 

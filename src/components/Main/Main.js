@@ -28,6 +28,7 @@ function Main(props) {
     const [sratrBalanseInWalletRow2, setStartBalanseInWalletRow2] = useState(userMoney.EUR)
     // стартовий баланс валют в гаманці
     const [inputNumberRow1, setInputNumberRow1] = useState(0);
+    const valueForSail = useSelector((state) => state.valueForSail);
 
 
 
@@ -57,7 +58,6 @@ function Main(props) {
 
     const sellObj = { displaySing, input1, setSellUserMoney, buyUserMoney, setStartBalanseInWalletRow2, setDisplaySing, inputNumberRow1, setInputNumberRow1, finalBalanse, setFinalBalanse, sellUserMoney, setStartBalanseInWalletRow2, sratrBalanseInWalletRow2, actualCourse, input2, setButtonClassname, buttonClassname };
 
-    const course = { sellUserMoney, buyUserMoney, actualCourse, setActualCourse };
 
     const buyObj = { userAuthorized, finalBalanseRow2, setFinalBalanseRow2, buyUserMoney, displaySing, input2, input1, actualCourse, setFinalBalanse, finalBalanse, setDisplaySing, sellUserMoney, setStartBalanseInWalletRow2, sratrBalanseInWalletRow2, setBuyUserMoney, setAmountCorrency, clearFunction, setAmountOfCurrencyRow2, setAmountOfCurrencyRow1, inputNumberRow1 };
 
@@ -130,9 +130,9 @@ function Main(props) {
     return (
         <>  {lengthArr !== 0 ?
             <div className='main__page'>
-                <div className='moneyOpsion'><div>Продаж {sellUserMoney}</div>
+                <div className='moneyOpsion'><div>Продаж {valueForSail}</div>
                 </div>
-                <CurrencyRates course={course} />
+                <CurrencyRates />
                 <SailOfCurrensy sellObj={sellObj} />
                 <BuyUserMoney buyObj={buyObj} />
                 <ModalFinishDeal modalFinal={modalFinal} />

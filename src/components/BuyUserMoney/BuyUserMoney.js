@@ -27,7 +27,7 @@ function BuyUserMoney(props) {
     };
 
     function handleChange(event) {
-        console.log(+event.target.value);
+        // console.log(+event.target.value);
         // setButtonClassname('button__submit btn__main')
         if ((sratrBalanseInWalletRow2 + (+event.target.value)) >= 0) {
             setDisplaySing('block');

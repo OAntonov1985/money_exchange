@@ -1,6 +1,7 @@
 import './modal.css';
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { actualValueForBuyRow2, actualCourseAfterChangeValue, actualCourseAnoterBase, valueForSail } from '../App/store2'
 
 import Modal from 'react-modal';
 const appRoot = document.getElementById('root');
@@ -11,13 +12,17 @@ function ModalWindow(props) {
 
     const namesOfCyrrebcies = useSelector((state) => state.namesOfCyrrebcies);
     const userMoney = useSelector((state) => state.userMoney);
+    const valueForBuy = useSelector((state) => state.valueForBuy);
 
     const [initialValueOfArray, setInitialValueOfArray] = useState(Object.entries(namesOfCyrrebcies));
     const [selectedCurrency, setSelectedCurrency] = useState('');
 
 
+    const dispatch = useDispatch();
+    const actualCourseAnoterBase = useSelector((state) => state.actualCourseAnoterBase);
+    const valueForSail = useSelector((state) => state.valueForSail);
 
-
+    // фільтр
     function handleSearchChange(event) {
         setSelectedCurrency(event.target.value);
 
@@ -28,8 +33,23 @@ function ModalWindow(props) {
         setInitialValueOfArray(results);
     };
 
-
+    // зміна валюти
     function catchNameOfСurrency(abbreviation) {
+        dispatch(actualValueForBuyRow2(abbreviation));
+
+        if (Object.keys(actualCourseAnoterBase).length !== 0) {
+
+            for (let key in actualCourseAnoterBase.data) {
+
+                if (key === valueForBuy) {
+                    console.log(actualCourseAnoterBase.data[key])
+                    dispatch(actualCourseAfterChangeValue(parseFloat((actualCourseAnoterBase.data[key].value).toFixed(2))))
+                }
+            }
+        }
+
+
+
         setBuyUserMoney(abbreviation);
         setInitialValueOfArray(Object.entries(namesOfCyrrebcies))
         setIsModalOpen(false);

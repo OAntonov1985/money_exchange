@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 
 export default function Start() {
 
-    const actualCourse = useSelector((state) => state.actualCourse.data);
+    const actualCourse = useSelector((state) => state.actualCourseAnoterBase.data);
 
     return (
         <>
