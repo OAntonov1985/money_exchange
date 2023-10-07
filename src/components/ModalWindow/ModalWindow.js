@@ -1,7 +1,7 @@
 import './modal.css';
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { actualValueForBuyRow2, actualCourseAfterChangeValue, actualCourseAnoterBase, setStartBalanseRow2 } from '../App/store2';
+import { actualValueForBuyRow2, actualCourseAfterChangeValue, setStartBalanseRow2 } from '../App/store2';
 import namesOfCyrrebcies from '../../data/namesOfCyrrebcies.json'
 
 import Modal from 'react-modal';
@@ -11,16 +11,15 @@ Modal.setAppElement(appRoot);
 function ModalWindow(props) {
     const { isModalOpen, setIsModalOpen } = props.obj
 
-    // const namesOfCyrrebcies = useSelector((state) => state.namesOfCyrrebcies);
     const userMoney = useSelector((state) => state.userMoney);
-    const valueForBuy = useSelector((state) => state.valueForBuy);
+    const actualCourseAnoterBase = useSelector((state) => state.actualCourseAnoterBase);
 
     const [initialValueOfArray, setInitialValueOfArray] = useState(Object.entries(namesOfCyrrebcies));
     const [selectedCurrency, setSelectedCurrency] = useState('');
 
-
     const dispatch = useDispatch();
-    const actualCourseAnoterBase = useSelector((state) => state.actualCourseAnoterBase);
+
+
 
     // фільтр
     function handleSearchChange(event) {
@@ -35,14 +34,11 @@ function ModalWindow(props) {
 
     // зміна валюти
     function catchNameOfСurrency(abbreviation) {
-        dispatch(actualValueForBuyRow2(abbreviation));
-        if (Object.keys(actualCourseAnoterBase).length !== 0) {
 
-            for (let key in actualCourseAnoterBase.data) {
-                if (key === valueForBuy) {
-                    dispatch(actualCourseAfterChangeValue(parseFloat((actualCourseAnoterBase.data[key].value).toFixed(2))));
-                }
-            }
+        if (Object.keys(actualCourseAnoterBase).length !== 0) {
+            dispatch(actualCourseAfterChangeValue(parseFloat((actualCourseAnoterBase[abbreviation].value).toFixed(2))));
+            dispatch(actualValueForBuyRow2(abbreviation));
+
         }
         if (userMoney[abbreviation] === undefined) {
             dispatch(setStartBalanseRow2(0))

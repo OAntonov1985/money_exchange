@@ -23,6 +23,8 @@ const userInfo = createSlice({
         startActualCourse: 0.95,
         startBalanseRow1: 0,
         startBalanseRow2: 0,
+        inputRow1: '',
+        inputRow2: '',
         userInfo: {
 
         },
@@ -35,7 +37,8 @@ const userInfo = createSlice({
         },
         namesOfCyrrebcies: namesOfCyrrebcies,
 
-        // valuerInput1: 0,
+        displaySing: 'none',
+        buttonClassname: 'btn_inactive',
     },
     reducers: {
         addUser: {
@@ -50,12 +53,13 @@ const userInfo = createSlice({
         },
         addValueForSail: {
             reducer: (state, action) => {
-                console.log(action.payload)
+                // console.log(action.payload)
                 state.actualCourseAnoterBase = action.payload
             },
         },
         actualValueForSailRow1: {
             reducer: (state, action) => {
+                console.log(action.payload)
                 state.valueForSail = action.payload
             },
         },
@@ -79,15 +83,35 @@ const userInfo = createSlice({
                 state.startBalanseRow2 = action.payload
             },
         },
+        setInputRow1Number: {
+            reducer: (state, action) => {
+                state.inputRow1 = action.payload
+            },
+        },
+        setInputRow2Number: {
+            reducer: (state, action) => {
+                state.inputRow2 = action.payload
+            },
+        },
+        setDisplaySing: {
+            reducer: (state, action) => {
+                state.displaySing = action.payload
+            },
+        },
+        setButtonClassname: {
+            reducer: (state, action) => {
+                state.buttonClassname = action.payload
+            },
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(fetchActualCourse.fulfilled, (state, action) => {
-            state.actualCourseAnoterBase = action.payload;
+            state.actualCourseAnoterBase = action.payload.data;
         });
     },
 });
 
-export const { addUser, addUserMoney, actualRatesAnotherBase, addValueForSail, actualValueForSailRow1, actualValueForBuyRow2, actualCourseAfterChangeValue, setStartBalanseRow1, setStartBalanseRow2 } = userInfo.actions;
+export const { addUser, addUserMoney, actualRatesAnotherBase, addValueForSail, actualValueForSailRow1, actualValueForBuyRow2, actualCourseAfterChangeValue, setStartBalanseRow1, setStartBalanseRow2, setInputRow1Number, setDisplaySing, setButtonClassname, setInputRow2Number } = userInfo.actions;
 
 export const store = configureStore({
     reducer: userInfo.reducer,

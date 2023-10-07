@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 
 export default function Start() {
 
-    const actualCourse = useSelector((state) => state.actualCourseAnoterBase.data);
+    const actualCourse = useSelector((state) => state.actualCourseAnoterBase);
 
     return (
         <>
@@ -16,7 +16,7 @@ export default function Start() {
                     <h3>Курси валют на сьогодні</h3>
                 </div>
                 <div className='usd'>Один доллар коштує:
-                    {!actualCourse ? 'Loading' : <ul>
+                    {Object.keys(actualCourse).length === 0 ? 'Loading' : <ul>
                         <li key='1' className='value__list'>
                             {parseFloat(actualCourse.PLN.value.toFixed(2))} польських злотих (PLN)</li>
                         <li key='2' className='value__list'>

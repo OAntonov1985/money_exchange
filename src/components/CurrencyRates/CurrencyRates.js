@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
 
 
 function CurrencyRates(props) {
@@ -8,7 +7,6 @@ function CurrencyRates(props) {
     const valueForSail = useSelector((state) => state.valueForSail);
     const valueForBuy = useSelector((state) => state.valueForBuy);
     const startActualCourse = useSelector((state) => state.startActualCourse);
-
 
     return (
         <>
