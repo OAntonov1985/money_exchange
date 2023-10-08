@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 
-function CurrencyRates(props) {
+function CurrencyRates() {
     const rates = useSelector((state) => state.actualCourseAnoterBase);
     const valueForSail = useSelector((state) => state.valueForSail);
     const valueForBuy = useSelector((state) => state.valueForBuy);

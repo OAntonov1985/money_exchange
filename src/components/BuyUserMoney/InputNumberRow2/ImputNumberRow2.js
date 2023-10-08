@@ -1,29 +1,34 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setInputRow2Number, setDisplaySing, setButtonClassname, setStartBalanseRow1, setInputRow1Number } from '../../App/store2';
+import { setInputRow2Number, setDisplaySing, setButtonClassname, setStartBalanseRow2, setInputRow1Number, setRowIndex } from '../../App/store2';
 
 
 function InputNumberRow2() {
     const dispatch = useDispatch();
     const displaySing = useSelector((state) => state.displaySing);
-    const startBalanseRow2 = useSelector((state) => state.startBalanseRow1);
+    const startBalanseRow2 = useSelector((state) => state.startBalanseRow2);
+    const startBalanseRow1 = useSelector((state) => state.startBalanseRow1);
     const inputRow2 = useSelector((state) => state.inputRow2);
+    const startActualCourse = useSelector((state) => state.startActualCourse);
+    const readInput = useSelector((state) => state.readInput);
 
 
     function onChangeValue(event) {
+        dispatch(setRowIndex(false))
         const value = +event.target.value;
-        if (!isNaN(value)) {
-            if (startBalanseRow2 - (+event.target.value) <= 0) {
+        if (!isNaN(value) && (/^\d+(\.\d{0,2})?$/.test(value))) {
+            if (startBalanseRow1 - (+event.target.value) <= 0) {
                 alert("Помилка. Недостатньо коштів на рахунку");
                 dispatch(setDisplaySing('none'));
                 dispatch(setButtonClassname('btn_inactive'));
                 dispatch(setInputRow1Number(''));
-                dispatch(setStartBalanseRow1(startBalanseRow2));
+                dispatch(setStartBalanseRow2(startBalanseRow2));
                 dispatch(setInputRow2Number(''));
                 event.target.value = '';
             }
             else {
-                dispatch(setInputRow2Number(value));
+                dispatch(setInputRow2Number(parseFloat((value).toFixed(2))));
+                dispatch(setInputRow1Number(parseFloat((value / startActualCourse).toFixed(2))));
             };
 
         };
@@ -44,6 +49,7 @@ function InputNumberRow2() {
                 <div className='row__plus' style={{ display: displaySing }}>+</div>
                 <input type="number" className='input__sell'
                     onChange={onChangeValue}
+                    readOnly={readInput === "readOnly"}
                     value={inputRow2 === 0 ? '' : inputRow2}
                     placeholder="0"
                 />

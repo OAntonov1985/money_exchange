@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 
 
 
-export default function Start() {
+function Start() {
 
     const actualCourse = useSelector((state) => state.actualCourseAnoterBase);
 
@@ -33,4 +33,6 @@ export default function Start() {
         </>
     );
 }
+
+export default React.memo(Start);
 

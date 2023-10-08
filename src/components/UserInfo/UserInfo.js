@@ -7,6 +7,7 @@ import './userinfo.css'
 export default function UserInfo(props) {
     const navigate = useNavigate();
     const userInfo = useSelector((state) => state.userInfo);
+    const userMoney = useSelector((state) => state.userMoney);
     const lengthArr = Object.keys(userInfo).length
 
     function goToMain() {
@@ -18,7 +19,7 @@ export default function UserInfo(props) {
             {lengthArr !== undefined ? <div className='userinfo__page'>
                 <div>Баланс Ваших рахунків</div>
                 <div className='user__balanse'><ul>
-                    {Object.entries(userInfo[0].money).map(([currency, rate]) => (
+                    {Object.entries(userMoney).map(([currency, rate]) => (
                         <li key={currency}>
                             {currency}: {rate}
                         </li>

@@ -1,7 +1,7 @@
 import './modal.css';
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { actualValueForBuyRow2, actualCourseAfterChangeValue, setStartBalanseRow2 } from '../App/store2';
+import { actualValueForBuyRow2, actualCourseAfterChangeValue, setStartBalanseRow2, setReadInpit, setInputRow1Number, setInputRow2Number, setDisplaySing } from '../App/store2';
 import namesOfCyrrebcies from '../../data/namesOfCyrrebcies.json'
 
 import Modal from 'react-modal';
@@ -13,6 +13,7 @@ function ModalWindow(props) {
 
     const userMoney = useSelector((state) => state.userMoney);
     const actualCourseAnoterBase = useSelector((state) => state.actualCourseAnoterBase);
+    const valueForSail = useSelector((state) => state.valueForSail);
 
     const [initialValueOfArray, setInitialValueOfArray] = useState(Object.entries(namesOfCyrrebcies));
     const [selectedCurrency, setSelectedCurrency] = useState('');
@@ -34,11 +35,20 @@ function ModalWindow(props) {
 
     // зміна валюти
     function catchNameOfСurrency(abbreviation) {
+        if (abbreviation === valueForSail) {
+            dispatch(setReadInpit('readOnly'))
+        }
+        else if (abbreviation !== valueForSail) {
+            dispatch(setReadInpit(''))
+        }
+
 
         if (Object.keys(actualCourseAnoterBase).length !== 0) {
             dispatch(actualCourseAfterChangeValue(parseFloat((actualCourseAnoterBase[abbreviation].value).toFixed(2))));
             dispatch(actualValueForBuyRow2(abbreviation));
-
+            dispatch(setInputRow1Number(''));
+            dispatch(setInputRow2Number(''));
+            dispatch(setDisplaySing('none'));
         }
         if (userMoney[abbreviation] === undefined) {
             dispatch(setStartBalanseRow2(0))

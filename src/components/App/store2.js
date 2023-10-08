@@ -25,16 +25,18 @@ const userInfo = createSlice({
         startBalanseRow2: 0,
         inputRow1: '',
         inputRow2: '',
+        rowIndex: true,
+        readInput: '',
         userInfo: {
 
         },
         userMoney: {
 
         },
-
         actualCourseAnoterBase: {
 
         },
+
         namesOfCyrrebcies: namesOfCyrrebcies,
 
         displaySing: 'none',
@@ -46,61 +48,75 @@ const userInfo = createSlice({
                 state.userInfo = action.payload
             },
         },
+
         addUserMoney: {
             reducer: (state, action) => {
-                state.userMoney = action.payload[0].money
+                state.userMoney = action.payload
             },
         },
-        addValueForSail: {
-            reducer: (state, action) => {
-                // console.log(action.payload)
-                state.actualCourseAnoterBase = action.payload
-            },
-        },
+
         actualValueForSailRow1: {
             reducer: (state, action) => {
-                console.log(action.payload)
                 state.valueForSail = action.payload
             },
         },
+
         actualValueForBuyRow2: {
             reducer: (state, action) => {
                 state.valueForBuy = action.payload
             },
         },
+
         actualCourseAfterChangeValue: {
             reducer: (state, action) => {
                 state.startActualCourse = action.payload
             },
         },
+
         setStartBalanseRow1: {
             reducer: (state, action) => {
                 state.startBalanseRow1 = action.payload
             },
         },
+
         setStartBalanseRow2: {
             reducer: (state, action) => {
                 state.startBalanseRow2 = action.payload
             },
         },
+
         setInputRow1Number: {
             reducer: (state, action) => {
                 state.inputRow1 = action.payload
             },
         },
+
         setInputRow2Number: {
             reducer: (state, action) => {
                 state.inputRow2 = action.payload
             },
         },
+
         setDisplaySing: {
             reducer: (state, action) => {
                 state.displaySing = action.payload
             },
         },
+
         setButtonClassname: {
             reducer: (state, action) => {
                 state.buttonClassname = action.payload
+            },
+        },
+
+        setRowIndex: {
+            reducer: (state, action) => {
+                state.rowIndex = action.payload
+            },
+        },
+        setReadInpit: {
+            reducer: (state, action) => {
+                state.readInput = action.payload
             },
         },
     },
@@ -111,7 +127,7 @@ const userInfo = createSlice({
     },
 });
 
-export const { addUser, addUserMoney, actualRatesAnotherBase, addValueForSail, actualValueForSailRow1, actualValueForBuyRow2, actualCourseAfterChangeValue, setStartBalanseRow1, setStartBalanseRow2, setInputRow1Number, setDisplaySing, setButtonClassname, setInputRow2Number } = userInfo.actions;
+export const { addUser, addUserMoney, actualRatesAnotherBase, actualValueForSailRow1, actualValueForBuyRow2, actualCourseAfterChangeValue, setStartBalanseRow1, setStartBalanseRow2, setInputRow1Number, setDisplaySing, setButtonClassname, setInputRow2Number, setRowIndex, setReadInpit } = userInfo.actions;
 
 export const store = configureStore({
     reducer: userInfo.reducer,

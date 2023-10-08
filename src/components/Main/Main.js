@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import '../ModalWindow/modal.css';
@@ -11,22 +11,32 @@ import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 import BuyUserMoney from '../BuyUserMoney/BuyUserMoney';
 import ModalFinishDeal from '../ModalFinishDeal/ModalFinishDeal';
 import ButtonFinishDeal from './ButtonFinishDeal/ButtonFinishDeal';
+import MoneyForSailInfoHead from './MoneyForSailInfoHead/MoneyForSailInfoHead';
 
 
 function Main() {
+    const [modalMakeDeal, setmodalmakeDeal] = useState(false)
     const userInfo = useSelector((state) => state.userInfo);
-    const valueForSail = useSelector((state) => state.valueForSail);
+
+    const buttonClassname = useSelector((state) => state.buttonClassname);
+    const modalFinal = { setmodalmakeDeal, modalMakeDeal, finalDeal };
+
+    function finalDeal() {
+        if (buttonClassname !== 'btn_inactive') {
+            setmodalmakeDeal(true);
+        }
+
+    }
 
     return (
         <>  {Object.keys(userInfo).length !== 0 ?
             <div className='main__page'>
-                <div className='moneyOpsion'><div>Продаж {valueForSail}</div>
-                </div>
+                <MoneyForSailInfoHead />
                 <CurrencyRates />
                 <SailOfCurrensy />
                 <BuyUserMoney />
-                {/* <ModalFinishDeal modalFinal={modalFinal} /> */}
-                <ButtonFinishDeal />
+                <ModalFinishDeal modalFinal={modalFinal} />
+                <ButtonFinishDeal onClick={finalDeal} />
             </div> : <ErrorBoundary />}
         </>
     );

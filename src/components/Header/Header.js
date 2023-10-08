@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addUser } from '../App/store2'
 import { NavLink } from 'react-router-dom';
@@ -6,13 +6,11 @@ import { NavLink } from 'react-router-dom';
 import './header.css'
 
 
-export default function Header(props) {
+function Header() {
 
     const userInfo = useSelector((state) => state.userInfo);
     const dispatch = useDispatch();
     const lengthArr = Object.keys(userInfo).length
-
-    const { userAuthorized, setUserDataHandler } = props;
     const [displayHelloText, setDisplayHelloText] = useState('block')
     const [displayAutorizerUser, setDisplayAutorizerUser] = useState('none')
     const [loginIndicator, setLoginIndicator] = useState('Login')
@@ -30,9 +28,7 @@ export default function Header(props) {
             setDisplayAutorizerUser('block')
             setLoginIndicator('Log Out')
         }
-    }, [lengthArr])
-
-
+    }, [lengthArr]);
 
 
     function goToLogin() {
@@ -41,9 +37,7 @@ export default function Header(props) {
         else if (lengthArr === 1) {
             dispatch(addUser({}));
         }
-    }
-
-
+    };
 
     return (
         <>
@@ -69,3 +63,4 @@ export default function Header(props) {
     );
 }
 
+export default React.memo(Header);

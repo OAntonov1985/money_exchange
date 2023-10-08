@@ -1,44 +1,36 @@
-import { useState, useEffect } from 'react';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { actualValueForSailRow1, actualCourseAfterChangeValue, setStartBalanseRow1 } from '../../App/store2';
+import { actualValueForSailRow1, setStartBalanseRow1, setReadInpit } from '../../App/store2';
 import useRatesAnotherbase from '../../HelperFunctions/useRatesAnotherbase ';
+import { updateCurrencyData } from '../../HelperFunctions/UpdateCurrencyData';
 
 function SelectorUsersMoney() {
     const dispatch = useDispatch();
-    const [nameOfValues, setNameOfValues] = useState([]);
 
     const userMoney = useSelector((state) => state.userMoney);
+    const valueForSail = useSelector((state) => state.valueForSail);
     const valueForBuy = useSelector((state) => state.valueForBuy);
     const { fetchRates } = useRatesAnotherbase();
 
     async function selectMoneyInVallet(event) {
         if (event.target.value === valueForBuy) {
-            dispatch(actualCourseAfterChangeValue(1));
-            dispatch(actualValueForSailRow1(event.target.value));
-            dispatch(setStartBalanseRow1(userMoney[event.target.value]))
+            updateCurrencyData(dispatch, event, userMoney);
         }
         else {
             fetchRates(event.target.value);
+            dispatch(setReadInpit(''));
             dispatch(actualValueForSailRow1(event.target.value));
             dispatch(setStartBalanseRow1(userMoney[event.target.value]))
         }
     }
 
-    useEffect(() => {
-        if (Object.keys(userMoney).length !== undefined) {
-            setNameOfValues(Object.keys(userMoney));
-        }
-    }, [Object.keys(userMoney).length]);
-
-
 
     return (
         <>
             <div className="maney__value">
-                <select onChange={selectMoneyInVallet}>
-                    {nameOfValues.map((currency, index) => (
-                        <option key={index} value={currency}>
+                <select onChange={selectMoneyInVallet} defaultValue={valueForSail}>
+                    {Object.keys(userMoney).map((currency, index) => (
+                        <option key={index} value={currency} >
                             {currency}
                         </option>
                     ))}
